@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Lib_Minimercado.entidades
+{
+    public class Salarios
+    {
+        public int Id { get; set; }
+        public decimal Valor { get; set; }
+
+        public List<Cargos> cargos { get; set; }
+    }
+}
