@@ -12,6 +12,6 @@ namespace Lib_Minimercado.entidades
         public String? Dia { get; set; }
         public String? Turno { get; set; }
 
-        public List<Cargos> cargos { get; set; }
+        public List<Cargos> Cargos { get; set; }
     }
 }

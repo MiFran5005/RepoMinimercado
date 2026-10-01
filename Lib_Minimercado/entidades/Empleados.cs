@@ -12,9 +12,9 @@ namespace Lib_Minimercado.entidades
         public String? Telefono { get; set; }
         public String? Carnet { get; set; }
 
-        public List<Empleados_Cargos> empleados_cargos { get; set; }
-        public List<Pedidos> pedidos { get; set; }
-        public List<Domicilios> domicilios { get; set; }
-        public List<Facturas> facturas { get; set; }
+        public List<Empleados_Cargos> Empleados_Cargos { get; set; }
+        public List<Pedidos> Pedidos { get; set; }
+        public List<Domicilios> Domicilios { get; set; }
+        public List<Facturas> Facturas { get; set; }
     }
 }

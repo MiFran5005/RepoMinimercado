@@ -12,6 +12,6 @@ namespace Lib_Minimercado.entidades
         public int Capacidad { get; set; }
         public String? Ubicacion { get; set; }
 
-        public List<Productos> productos { get; set; }
+        public List<Productos> Productos { get; set; }
     }
 }

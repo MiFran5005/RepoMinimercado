@@ -12,6 +12,6 @@ namespace Lib_Minimercado.entidades
         public int Minimo { get; set; }
         public int Maximo { get; set; }
 
-        public List<Productos> productos { get; set; }
+        public List<Productos> Productos { get; set; }
     }
 }

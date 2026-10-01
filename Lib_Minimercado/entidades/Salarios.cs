@@ -9,6 +9,6 @@ namespace Lib_Minimercado.entidades
         public int Id { get; set; }
         public decimal Valor { get; set; }
 
-        public List<Cargos> cargos { get; set; }
+        public List<Cargos> Cargos { get; set; }
     }
 }

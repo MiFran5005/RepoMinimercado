@@ -13,6 +13,6 @@ namespace Lib_Minimercado.entidades
         public String? Telefono { get; set; }
 
 
-        public List<Detalles> detalles { get; set; }
+        public List<Detalles> Detalles { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Lib_Minimercado.entidades
@@ -17,12 +18,12 @@ namespace Lib_Minimercado.entidades
         public int Marca { get; set; }
         public int Categoria { get; set; }
 
-        public Proveedores? _proveedores { get; set; }
-        public Estantes? _estantes { get; set; }
-        public Inventarios? _inventarios { get; set; }
-        public Marcas? _marcas { get; set; }
-        public Categorias? _categorias { get; set; }
+        [ForeignKey("Proveedor")] public Proveedores? _Proveedor { get; set; }
+        [ForeignKey("Estante")] public Estantes? _Estante { get; set; }
+        [ForeignKey("Inventario")] public Inventarios? _Inventario { get; set; }
+        [ForeignKey("Marca")] public Marcas? _Marca { get; set; }
+        [ForeignKey("Categoria")] public Categorias? _Categoria { get; set; }
 
-        public List<Detalles> detalles { get; set; }
+        public List<Detalles> Detalles { get; set; }
     }
 }

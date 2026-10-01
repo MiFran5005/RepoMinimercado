@@ -13,6 +13,6 @@ namespace Lib_Minimercado.entidades
         public String? Tipo { get; set; }
 
 
-        public List<Domicilios> domicilios { get; set; }
+        public List<Domicilios> Domicilios { get; set; }
     }
 }

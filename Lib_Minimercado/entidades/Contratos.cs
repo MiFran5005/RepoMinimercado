@@ -12,6 +12,6 @@ namespace Lib_Minimercado.entidades
         public String? TipoContrato { get; set; }
         public String? Descripcion { get; set; }
 
-        public List<Empleados_Cargos> empleados_cargos { get; set; }
+        public List<Empleados_Cargos> Empleados_Cargos { get; set; }
     }
 }

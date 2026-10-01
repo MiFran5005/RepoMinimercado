@@ -10,6 +10,6 @@ namespace Lib_Minimercado.entidades
         public String? Nombre { get; set; }
         public String? Descripcion { get; set; }
 
-        public List<Productos> productos { get; set; }
+        public List<Productos> Productos { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Lib_Minimercado.entidades
@@ -12,9 +13,9 @@ namespace Lib_Minimercado.entidades
         public int Horario { get; set; }
         public String? Descripcion { get; set; }
 
-        public Salarios? _salario { get; set; }
-        public Horarios? _horario { get; set; }
+        [ForeignKey("Salario")] public Salarios? _Salario { get; set; }
+        [ForeignKey("Horario")] public Horarios? _Horario { get; set; }
 
-        public List<Empleados_Cargos> empleados_cargos { get; set; }
+        public List<Empleados_Cargos> Empleados_Cargos { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Lib_Minimercado.entidades
@@ -13,7 +14,7 @@ namespace Lib_Minimercado.entidades
         public int Proveedor { get; set; }
         public DateTime Fecha { get; set; }
 
-        public Empleados? _empleados { get; set; }
-        public Proveedores? _proveedores { get; set; }
+        [ForeignKey("Empleado")] public Empleados? _Empleado { get; set; }
+        [ForeignKey("Proveedor")] public Proveedores? _Proveedore { get; set; }
     }
 }
