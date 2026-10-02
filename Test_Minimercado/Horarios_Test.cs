@@ -2,15 +2,15 @@
 using Lib_Minimercado.implementaciones;
 using Microsoft.EntityFrameworkCore;
 
-namespace TestProject1
+namespace Test_Minimercado
 {
     [TestClass]
-    public class Salarios_Test
+    public class Horarios_Test
     {
         private Conexion conexion;
-        private Salarios entidad;
+        private Horarios entidad;
 
-        public Salarios_Test()
+        public Horarios_Test()
         {
             this.conexion = new Conexion();
             conexion.StringConexion = "server=localhost\\DEV;database=db_minimercado;Integrated Security=True;TrustServerCertificate=true;";
@@ -27,34 +27,37 @@ namespace TestProject1
 
         private void Insertar()
         {
-            entidad = new Salarios()
+            entidad = new Horarios()
             {
-                Valor = 1000000
+                HoraInicio = DateTime.Now,
+                HoraFinal = DateTime.Now,
+                Dia = "Lunes",
+                Turno = "Noche"
             };
 
-            this.conexion.Salarios!.Add(this.entidad!);
+            this.conexion.Horarios!.Add(this.entidad!);
             this.conexion.SaveChanges();
         }
 
         public void Consultar()
         {
-            var lista_salarios = this.conexion.Salarios!.ToList();
-            if (lista_salarios.Count <= 0)
+            var lista_horarios = this.conexion.Horarios!.ToList();
+            if (lista_horarios.Count <= 0)
                 throw new Exception("Lista vacia");
         }
 
         private void Actualizar()
         {
-            this.entidad!.Valor = 500000;
+            this.entidad!.Turno = "Dia";
 
-            var entry = this.conexion!.Entry<Salarios>(this.entidad);
+            var entry = this.conexion!.Entry<Horarios>(this.entidad);
             entry.State = EntityState.Modified;
             this.conexion!.SaveChanges();
         }
 
         private void Borrar()
         {
-            this.conexion.Salarios!.Remove(this.entidad!);
+            this.conexion.Horarios!.Remove(this.entidad!);
             this.conexion.SaveChanges();
         }
     }

@@ -2,15 +2,15 @@
 using Lib_Minimercado.implementaciones;
 using Microsoft.EntityFrameworkCore;
 
-namespace TestProject1
+namespace Test_Minimercado
 {
     [TestClass]
-    public class Empleados_Cargos_Test
+    public class Contratos_Test
     {
         private Conexion conexion;
-        private Empleados_Cargos entidad;
+        private Contratos entidad;
 
-        public Empleados_Cargos_Test()
+        public Contratos_Test()
         {
             this.conexion = new Conexion();
             conexion.StringConexion = "server=localhost\\DEV;database=db_minimercado;Integrated Security=True;TrustServerCertificate=true;";
@@ -27,37 +27,37 @@ namespace TestProject1
 
         private void Insertar()
         {
-            entidad = new Empleados_Cargos()
+            entidad = new Contratos()
             {
-                Cargo = 1,
-                Empleado = 1,
-                Contrato = 1,
-                FechaAsignacion = DateTime.Now
+                FechaInicio = DateTime.Now,
+                FechaFin = DateTime.Now,
+                TipoContrato = "Termino indefinido",
+                Descripcion = "No haga sino trabajar"
             };
 
-            this.conexion.Empleados_Cargos!.Add(this.entidad!);
+            this.conexion.Contratos!.Add(this.entidad!);
             this.conexion.SaveChanges();
         }
 
         public void Consultar()
         {
-            var lista_empleados_cargos = this.conexion.Empleados_Cargos!.ToList();
-            if (lista_empleados_cargos.Count <= 0)
+            var lista_horarios = this.conexion.Contratos!.ToList();
+            if (lista_horarios.Count <= 0)
                 throw new Exception("Lista vacia");
         }
 
         private void Actualizar()
         {
-            this.entidad!.FechaAsignacion = DateTime.Now;
+            this.entidad!.TipoContrato = "Termino fijo";
 
-            var entry = this.conexion!.Entry<Empleados_Cargos>(this.entidad);
+            var entry = this.conexion!.Entry<Contratos>(this.entidad);
             entry.State = EntityState.Modified;
             this.conexion!.SaveChanges();
         }
 
         private void Borrar()
         {
-            this.conexion.Empleados_Cargos!.Remove(this.entidad!);
+            this.conexion.Contratos!.Remove(this.entidad!);
             this.conexion.SaveChanges();
         }
     }

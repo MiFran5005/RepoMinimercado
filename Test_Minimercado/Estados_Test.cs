@@ -2,15 +2,15 @@
 using Lib_Minimercado.implementaciones;
 using Microsoft.EntityFrameworkCore;
 
-namespace TestProject1
+namespace Test_Minimercado
 {
     [TestClass]
-    public class Horarios_Test
+    public class Estados_Test
     {
         private Conexion conexion;
-        private Horarios entidad;
+        private Estados entidad;
 
-        public Horarios_Test()
+        public Estados_Test()
         {
             this.conexion = new Conexion();
             conexion.StringConexion = "server=localhost\\DEV;database=db_minimercado;Integrated Security=True;TrustServerCertificate=true;";
@@ -27,37 +27,37 @@ namespace TestProject1
 
         private void Insertar()
         {
-            entidad = new Horarios()
+            entidad = new Estados()
             {
-                HoraInicio = DateTime.Now,
-                HoraFinal = DateTime.Now,
-                Dia = "Lunes",
-                Turno = "Noche"
+                TipoEstado = "Pedidos",
+                Nombre = "Pendiente",
+                Descripcion = "Estado pendiente de aprobación"
             };
 
-            this.conexion.Horarios!.Add(this.entidad!);
+            this.conexion.Estados!.Add(this.entidad!);
             this.conexion.SaveChanges();
         }
 
         public void Consultar()
         {
-            var lista_horarios = this.conexion.Horarios!.ToList();
-            if (lista_horarios.Count <= 0)
+            var lista_estados = this.conexion.Estados!.ToList();
+            if (lista_estados.Count <= 0)
                 throw new Exception("Lista vacia");
         }
 
         private void Actualizar()
         {
-            this.entidad!.Turno = "Dia";
+            this.entidad!.Nombre = "Entregado";
+            this.entidad!.Descripcion = "Estado entregado";
 
-            var entry = this.conexion!.Entry<Horarios>(this.entidad);
+            var entry = this.conexion!.Entry<Estados>(this.entidad);
             entry.State = EntityState.Modified;
             this.conexion!.SaveChanges();
         }
 
         private void Borrar()
         {
-            this.conexion.Horarios!.Remove(this.entidad!);
+            this.conexion.Estados!.Remove(this.entidad!);
             this.conexion.SaveChanges();
         }
     }

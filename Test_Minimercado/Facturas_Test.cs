@@ -2,20 +2,19 @@
 using Lib_Minimercado.implementaciones;
 using Microsoft.EntityFrameworkCore;
 
-namespace TestProject1
+namespace Test_Minimercado
 {
     [TestClass]
-    public class Pedidos_Test
+    public class FacturasTest
     {
         private Conexion conexion;
-        private Pedidos entidad;
+        private Facturas entidad;
 
-        public Pedidos_Test()
+        public FacturasTest()
         {
             this.conexion = new Conexion();
             conexion.StringConexion = "server=localhost\\DEV;database=db_minimercado;Integrated Security=True;TrustServerCertificate=true;";
         }
-
         [TestMethod]
         public void Ejecutar()
         {
@@ -25,40 +24,39 @@ namespace TestProject1
             Borrar();
         }
 
-        private void Insertar()
+        public void Insertar()
         {
-            entidad = new Pedidos()
+            entidad = new Facturas()
             {
-                Cantidad = 30,
-                Total = 123250.32m,
-                Empleado =  1,
-                Proveedor = 1,
-                Fecha = DateTime.Now
+                Cantidad = 5,
+                Total = 50000,
+                Fecha = DateTime.Now,
+                Empleado = 1
             };
-
-            this.conexion.Pedidos!.Add(this.entidad!);
+            this.conexion.Facturas!.Add(this.entidad!);
             this.conexion.SaveChanges();
         }
 
         public void Consultar()
         {
-            var lista_pedidos = this.conexion.Pedidos!.ToList();
-            if (lista_pedidos.Count <= 0)
+            var lista_facturas = this.conexion.Facturas!.ToList();
+            if (lista_facturas.Count <= 0)
                 throw new Exception("Lista vacia");
         }
 
         private void Actualizar()
         {
-            this.entidad!.Cantidad = 3;
+            this.entidad!.Cantidad = 6;
+            this.entidad!.Total = 60000;
 
-            var entry = this.conexion!.Entry<Pedidos>(this.entidad);
+            var entry = this.conexion!.Entry<Facturas>(this.entidad);
             entry.State = EntityState.Modified;
             this.conexion!.SaveChanges();
         }
 
         private void Borrar()
         {
-            this.conexion.Pedidos!.Remove(this.entidad!);
+            this.conexion.Facturas!.Remove(this.entidad!);
             this.conexion.SaveChanges();
         }
     }

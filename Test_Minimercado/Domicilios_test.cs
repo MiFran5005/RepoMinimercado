@@ -2,20 +2,19 @@
 using Lib_Minimercado.implementaciones;
 using Microsoft.EntityFrameworkCore;
 
-namespace TestProject1
+namespace Test_Minimercado
 {
     [TestClass]
-    public class Empleados_Test
+    public class DomiciliosTest
     {
         private Conexion conexion;
-        private Empleados entidad;
+        private Domicilios entidad;
 
-        public Empleados_Test()
+        public DomiciliosTest()
         {
             this.conexion = new Conexion();
             conexion.StringConexion = "server=localhost\\DEV;database=db_minimercado;Integrated Security=True;TrustServerCertificate=true;";
         }
-
         [TestMethod]
         public void Ejecutar()
         {
@@ -25,39 +24,38 @@ namespace TestProject1
             Borrar();
         }
 
-        private void Insertar()
+        public void Insertar()
         {
-            entidad = new Empleados()
+            entidad = new Domicilios()
             {
-                Nombre = "Juan",
-                Cedula = "15142",
-                Telefono = "31511214",
-                Carnet = "AB22AV1"
+                Empleado = 1,
+                Vehiculo = 1,
+                Fecha = DateTime.Now,
+                Descripcion = "Calle 43 cr 15, por la vuelta de don tito"
             };
-
-            this.conexion.Empleados!.Add(this.entidad!);
+            this.conexion.Domicilios!.Add(this.entidad!);
             this.conexion.SaveChanges();
         }
 
         public void Consultar()
         {
-            var lista_horarios = this.conexion.Empleados!.ToList();
-            if (lista_horarios.Count <= 0)
+            var lista_domicilios = this.conexion.Domicilios!.ToList();
+            if (lista_domicilios.Count <= 0)
                 throw new Exception("Lista vacia");
         }
 
         private void Actualizar()
         {
-            this.entidad!.Telefono = "3132";
+            this.entidad!.Descripcion = "Calle 69 cr 67, antes de llegar al parque";
 
-            var entry = this.conexion!.Entry<Empleados>(this.entidad);
+            var entry = this.conexion!.Entry<Domicilios>(this.entidad);
             entry.State = EntityState.Modified;
             this.conexion!.SaveChanges();
         }
 
         private void Borrar()
         {
-            this.conexion.Empleados!.Remove(this.entidad!);
+            this.conexion.Domicilios!.Remove(this.entidad!);
             this.conexion.SaveChanges();
         }
     }
