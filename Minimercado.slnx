@@ -1,5 +1,5 @@
 <Solution>
   <Project Path="App_Minimercado/App_Minimercado.csproj" />
   <Project Path="Lib_Minimercado/Lib_Minimercado.csproj" />
-  <Project Path="TestProject1/Test_Minimercado.csproj" Id="6c55b6bd-0292-45ad-9796-b7bdbdc95db5" />
+  <Project Path="Test_Minimercado/Test_Minimercado.csproj" />
 </Solution>

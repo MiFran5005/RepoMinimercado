@@ -2,15 +2,15 @@
 using Lib_Minimercado.implementaciones;
 using Microsoft.EntityFrameworkCore;
 
-namespace TestProject1
+namespace Test_Minimercado
 {
     [TestClass]
-    public class Contratos_Test
+    public class Empleados_Test
     {
         private Conexion conexion;
-        private Contratos entidad;
+        private Empleados entidad;
 
-        public Contratos_Test()
+        public Empleados_Test()
         {
             this.conexion = new Conexion();
             conexion.StringConexion = "server=localhost\\DEV;database=db_minimercado;Integrated Security=True;TrustServerCertificate=true;";
@@ -27,37 +27,37 @@ namespace TestProject1
 
         private void Insertar()
         {
-            entidad = new Contratos()
+            entidad = new Empleados()
             {
-                FechaInicio = DateTime.Now,
-                FechaFin = DateTime.Now,
-                TipoContrato = "Termino indefinido",
-                Descripcion = "No haga sino trabajar"
+                Nombre = "Juan",
+                Cedula = "15142",
+                Telefono = "31511214",
+                Carnet = "AB22AV1"
             };
 
-            this.conexion.Contratos!.Add(this.entidad!);
+            this.conexion.Empleados!.Add(this.entidad!);
             this.conexion.SaveChanges();
         }
 
         public void Consultar()
         {
-            var lista_horarios = this.conexion.Contratos!.ToList();
+            var lista_horarios = this.conexion.Empleados!.ToList();
             if (lista_horarios.Count <= 0)
                 throw new Exception("Lista vacia");
         }
 
         private void Actualizar()
         {
-            this.entidad!.TipoContrato = "Termino fijo";
+            this.entidad!.Telefono = "3132";
 
-            var entry = this.conexion!.Entry<Contratos>(this.entidad);
+            var entry = this.conexion!.Entry<Empleados>(this.entidad);
             entry.State = EntityState.Modified;
             this.conexion!.SaveChanges();
         }
 
         private void Borrar()
         {
-            this.conexion.Contratos!.Remove(this.entidad!);
+            this.conexion.Empleados!.Remove(this.entidad!);
             this.conexion.SaveChanges();
         }
     }
