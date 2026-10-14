@@ -11,7 +11,7 @@ namespace Lib_Minimercado.entidades
         public int Codigo { get; set; }
         public string? Nombre { get; set; }
         public int Precio { get; set; }
-        public int IVA { get; set; }
+        public decimal IVA { get; set; }
         public int Proveedor { get; set; }
         public int Estante { get; set; }
         public int Inventario { get; set; }

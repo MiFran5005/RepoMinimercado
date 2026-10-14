@@ -186,6 +186,8 @@ CREATE TABLE [Clientes]
 
 INSERT INTO [Clientes] ([Codigo], [Nombre], [Cedula], [Telefono])
 VALUES ('CLI-001', 'Juan Rodriguez', '1009876543', '3109876543');
+INSERT INTO [Clientes] ([Codigo], [Nombre], [Cedula], [Telefono])
+VALUES ('CLI-002', 'Ana Garcia', '1088291224', '3027669192');
 
 SELECT * FROM [Clientes];
 
@@ -242,7 +244,7 @@ CREATE TABLE [Productos]
 	[Codigo] INT NOT NULL,
 	[Nombre] NVARCHAR(200) NOT NULL,
 	[Precio] INT NOT NULL,
-	[IVA] INT NOT NULL,
+	[IVA] DECIMAL(4,2) NOT NULL,
 	[Proveedor] INT NOT NULL REFERENCES [Proveedores]([id]),
 	[Estante] INT NOT NULL REFERENCES [Estantes]([id]),
 	[Inventario] INT NOT NULL REFERENCES [Inventarios]([id]),

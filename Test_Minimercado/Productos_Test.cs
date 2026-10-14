@@ -1,7 +1,6 @@
 ﻿using Lib_Minimercado.entidades;
 using Lib_Minimercado.implementaciones;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 
 namespace Test_Minimercado
 {
@@ -30,11 +29,11 @@ namespace Test_Minimercado
         {
             entidad = new Productos()
             {
-                Codigo = "123456",
+                Codigo = 12345,
                 Nombre = "Gaseosa",
                 Precio = 5000,
-                IVA = 0.19,
-                Provedor = 1,
+                IVA = 0.19m,
+                Proveedor = 1,
                 Estante = 1,
                 Inventario = 1,
                 Marca = 1,
@@ -54,7 +53,7 @@ namespace Test_Minimercado
 
         private void Actualizar()
         {
-            this.entidad!.Nombre = "Pilsen";
+            this.entidad!.Precio = 6000;
 
             var entry = this.conexion!.Entry<Productos>(this.entidad);
             entry.State = EntityState.Modified;
