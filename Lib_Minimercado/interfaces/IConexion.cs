@@ -1,5 +1,6 @@
 ﻿using Lib_Minimercado.entidades;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,5 +31,8 @@ namespace Lib_Minimercado.interfaces
          DbSet<Proveedores>? Proveedores { get; set; }
          DbSet<Salarios>? Salarios { get; set; }
          DbSet<Vehiculos>? Vehiculos { get; set; }
+
+        EntityEntry<T> Entry<T>(T entity) where T : class;
+        int SaveChanges();
     }
 }
