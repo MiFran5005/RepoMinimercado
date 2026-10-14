@@ -48,7 +48,7 @@ namespace Test_Minimercado
 
         private void Actualizar()
         {
-            this.entidad!.Producto = 2;
+            this.entidad!.Cliente = 2;
 
             var entry = this.conexion!.Entry<Detalles>(this.entidad);
             entry.State = EntityState.Modified;
