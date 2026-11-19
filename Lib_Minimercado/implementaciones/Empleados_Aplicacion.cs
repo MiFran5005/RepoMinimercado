@@ -18,7 +18,11 @@ namespace Lib_Minimercado.implementaciones
 
         public Empleados Actualizar(Empleados entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
 
             var entry = this.conexion!.Entry<Empleados>(entidad);
             entry.State = EntityState.Modified;
@@ -28,13 +32,19 @@ namespace Lib_Minimercado.implementaciones
 
         public Empleados Borrar(Empleados entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardo");
 
             this.conexion.Empleados!.Remove(entidad!);
             this.conexion.SaveChanges();
             return entidad;
         }
-
+        public List<Empleados> Buscar(Empleados entidad)
+        {
+            return this.conexion.Empleados!
+                .Where(x => x.Nombre!.Contains(entidad.Nombre!))
+                .ToList();
+        }
         public List<Empleados> Consultar()
         {
             return this.conexion.Empleados!
@@ -43,11 +53,24 @@ namespace Lib_Minimercado.implementaciones
 
         public Empleados Insertar(Empleados entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
 
             this.conexion.Empleados!.Add(entidad!);
             this.conexion.SaveChanges();
             return entidad;
         }
+        private bool Validar(Empleados entidad)
+        {
+            return string.IsNullOrEmpty(entidad.Nombre) ||
+                string.IsNullOrEmpty(entidad.Cedula) ||
+                string.IsNullOrEmpty(entidad.Telefono) ||
+                string.IsNullOrEmpty(entidad.Carnet);
+        }
+
+        }
     }
-}
+

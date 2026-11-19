@@ -14,7 +14,11 @@ namespace Lib_Minimercado.implementaciones
 
         public Cargos Actualizar(Cargos entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
 
             var entry = this.conexion!.Entry<Cargos>(entidad);
             entry.State = EntityState.Modified;
@@ -24,13 +28,19 @@ namespace Lib_Minimercado.implementaciones
 
         public Cargos Borrar(Cargos entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardo");
 
             this.conexion.Cargos!.Remove(entidad!);
             this.conexion.SaveChanges();
             return entidad;
         }
-
+        public List<Cargos> Buscar(Cargos entidad)
+        {
+            return this.conexion.Cargos!
+                .Where(x => x.TipoEmpleado!.Contains(entidad.TipoEmpleado!))
+                .ToList();
+        }
         public List<Cargos> Consultar()
         {
             return this.conexion.Cargos!
@@ -39,11 +49,22 @@ namespace Lib_Minimercado.implementaciones
 
         public Cargos Insertar(Cargos entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
 
             this.conexion.Cargos!.Add(entidad!);
             this.conexion.SaveChanges();
             return entidad;
+        }
+        private bool Validar(Cargos entidad)
+        {
+            return string.IsNullOrEmpty(entidad.TipoEmpleado) ||
+                entidad.Salario <= 0 ||
+                entidad.Horario <= 0 ||
+                string.IsNullOrEmpty(entidad.Descripcion);
         }
     }
 }

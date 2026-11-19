@@ -11,5 +11,6 @@ namespace Lib_Minimercado.implementaciones
         List<Pedidos> Consultar();
         Pedidos Actualizar(Pedidos entidad);
         Pedidos Borrar(Pedidos entidad);
+        List<Pedidos> Buscar(Pedidos entidad);
     }
 }

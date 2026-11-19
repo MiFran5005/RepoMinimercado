@@ -18,7 +18,11 @@ namespace Lib_Minimercado.implementaciones
 
         public Salarios Actualizar(Salarios entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
 
             var entry = this.conexion!.Entry<Salarios>(entidad);
             entry.State = EntityState.Modified;
@@ -28,13 +32,19 @@ namespace Lib_Minimercado.implementaciones
 
         public Salarios Borrar(Salarios entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardo");
 
             this.conexion.Salarios!.Remove(entidad!);
             this.conexion.SaveChanges();
             return entidad;
         }
-
+        public List<Salarios> Buscar(Salarios entidad)
+        {
+            return this.conexion.Salarios!
+                .Where(x => x.Valor! >= entidad.Valor!)
+                .ToList();
+        }
         public List<Salarios> Consultar()
         {
             return this.conexion.Salarios!
@@ -43,11 +53,20 @@ namespace Lib_Minimercado.implementaciones
 
         public Salarios Insertar(Salarios entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
 
             this.conexion.Salarios!.Add(entidad!);
             this.conexion.SaveChanges();
             return entidad;
+        }
+        private bool Validar(Salarios entidad)
+        {
+            return entidad.Valor <= 0;
+                
         }
     }
 }

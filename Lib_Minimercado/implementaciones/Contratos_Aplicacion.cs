@@ -18,7 +18,11 @@ namespace Lib_Minimercado.implementaciones
 
         public Contratos Actualizar(Contratos entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
 
             var entry = this.conexion!.Entry<Contratos>(entidad);
             entry.State = EntityState.Modified;
@@ -28,13 +32,19 @@ namespace Lib_Minimercado.implementaciones
 
         public Contratos Borrar(Contratos entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardo");
 
             this.conexion.Contratos!.Remove(entidad!);
             this.conexion.SaveChanges();
             return entidad;
         }
-
+        public List<Contratos> Buscar(Contratos entidad)
+        {
+            return this.conexion.Contratos!
+                .Where(x => x.TipoContrato!.Contains(entidad.TipoContrato!))
+                .ToList();
+        }
         public List<Contratos> Consultar()
         {
             return this.conexion.Contratos!
@@ -43,11 +53,21 @@ namespace Lib_Minimercado.implementaciones
 
         public Contratos Insertar(Contratos entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
 
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
             this.conexion.Contratos!.Add(entidad!);
             this.conexion.SaveChanges();
             return entidad;
+        }
+        private bool Validar(Contratos entidad)
+        {
+            return entidad.FechaInicio == null ||
+                entidad.FechaFin == null ||
+                string.IsNullOrEmpty(entidad.TipoContrato) ||
+                string.IsNullOrEmpty(entidad.Descripcion);
         }
     }
 }

@@ -11,5 +11,6 @@ namespace Lib_Minimercado.implementaciones
         List<Contratos> Consultar();
         Contratos Actualizar(Contratos entidad);
         Contratos Borrar(Contratos entidad);
+        List<Contratos> Buscar(Contratos entidad);
     }
 }

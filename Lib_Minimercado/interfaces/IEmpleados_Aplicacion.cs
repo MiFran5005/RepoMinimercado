@@ -11,5 +11,6 @@ namespace Lib_Minimercado.implementaciones
         List<Empleados> Consultar();
         Empleados Actualizar(Empleados entidad);
         Empleados Borrar(Empleados entidad);
+        List<Empleados> Buscar(Empleados entidad);
     }
 }

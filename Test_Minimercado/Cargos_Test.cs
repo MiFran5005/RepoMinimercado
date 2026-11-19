@@ -1,5 +1,6 @@
 ﻿using Lib_Minimercado.entidades;
 using Lib_Minimercado.implementaciones;
+using Lib_Minimercado.Nucleo;
 using Microsoft.EntityFrameworkCore;
 
 namespace Test_Minimercado
@@ -12,8 +13,7 @@ namespace Test_Minimercado
 
         public Cargos_Test()
         {
-            this.conexion = new Conexion();
-            conexion.StringConexion = "server=localhost\\DEV;database=db_minimercado;Integrated Security=True;TrustServerCertificate=true;";
+            this.conexion.StringConexion = Datos_Generales.ObtenerStringConexion();
         }
 
         [TestMethod]

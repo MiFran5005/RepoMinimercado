@@ -1,11 +1,12 @@
 ﻿using Lib_Minimercado.implementaciones;
 using Lib_Minimercado.interfaces;
-using Microsoft.EntityFrameworkCore;
+using Lib_Minimercado.Nucleo;
+
 
 try
 {
     IConexion conexion = new Conexion();
-    conexion.StringConexion = "server=localhost\\DEV;database=db_minimercado;Integrated Security=True;TrustServerCertificate=true;";
+    conexion.StringConexion = Datos_Generales.ObtenerStringConexion();
     var lista_cargos = conexion.Cargos!.ToList();
     var lista_categorias = conexion.Categorias!.ToList();
     var lista_clientes = conexion.Clientes!.ToList();

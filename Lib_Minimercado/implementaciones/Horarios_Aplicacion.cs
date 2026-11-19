@@ -18,7 +18,11 @@ namespace Lib_Minimercado.implementaciones
 
         public Horarios Actualizar(Horarios entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
 
             var entry = this.conexion!.Entry<Horarios>(entidad);
             entry.State = EntityState.Modified;
@@ -28,13 +32,19 @@ namespace Lib_Minimercado.implementaciones
 
         public Horarios Borrar(Horarios entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardo");
 
             this.conexion.Horarios!.Remove(entidad!);
             this.conexion.SaveChanges();
             return entidad;
         }
-
+        public List<Horarios> Buscar(Horarios entidad)
+        {
+            return this.conexion.Horarios!
+                .Where(x => x.Turno!.Contains(entidad.Turno!))
+                .ToList();
+        }
         public List<Horarios> Consultar()
         {
             return this.conexion.Horarios!
@@ -43,11 +53,21 @@ namespace Lib_Minimercado.implementaciones
 
         public Horarios Insertar(Horarios entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
 
             this.conexion.Horarios!.Add(entidad!);
             this.conexion.SaveChanges();
             return entidad;
+        }
+        private bool Validar(Horarios entidad)
+        {
+            return string.IsNullOrEmpty(entidad.Turno) ||
+                entidad.HoraInicio == null ||
+                entidad.HoraFinal == null;
         }
     }
 }

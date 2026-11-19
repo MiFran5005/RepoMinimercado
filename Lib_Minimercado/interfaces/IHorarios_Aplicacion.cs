@@ -11,5 +11,6 @@ namespace Lib_Minimercado.implementaciones
         List<Horarios> Consultar();
         Horarios Actualizar(Horarios entidad);
         Horarios Borrar(Horarios entidad);
+        List<Horarios> Buscar(Horarios entidad);
     }
 }

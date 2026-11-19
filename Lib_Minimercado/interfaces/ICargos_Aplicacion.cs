@@ -11,5 +11,6 @@ namespace Lib_Minimercado.implementaciones
         List<Cargos> Consultar ();
         Cargos Actualizar (Cargos entidad);
         Cargos Borrar (Cargos entidad);
+        List<Cargos> Buscar(Cargos entidad);
     }
 }

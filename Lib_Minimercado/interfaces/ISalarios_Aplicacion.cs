@@ -11,5 +11,6 @@ namespace Lib_Minimercado.implementaciones
         List<Salarios> Consultar();
         Salarios Actualizar(Salarios entidad);
         Salarios Borrar(Salarios entidad);
+        List<Salarios> Buscar(Salarios entidad);
     }
 }

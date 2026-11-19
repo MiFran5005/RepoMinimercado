@@ -18,7 +18,11 @@ namespace Lib_Minimercado.implementaciones
 
         public Pedidos Actualizar(Pedidos entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
 
             var entry = this.conexion!.Entry<Pedidos>(entidad);
             entry.State = EntityState.Modified;
@@ -34,7 +38,12 @@ namespace Lib_Minimercado.implementaciones
             this.conexion.SaveChanges();
             return entidad;
         }
-
+        public List<Pedidos> Buscar(Pedidos entidad)
+        {
+            return this.conexion.Pedidos!
+                .Where(x => x.Cantidad! >= entidad.Cantidad!)
+                .ToList();
+        }
         public List<Pedidos> Consultar()
         {
             return this.conexion.Pedidos!
@@ -43,11 +52,24 @@ namespace Lib_Minimercado.implementaciones
 
         public Pedidos Insertar(Pedidos entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
 
             this.conexion.Pedidos!.Add(entidad!);
             this.conexion.SaveChanges();
             return entidad;
         }
+        private bool Validar(Pedidos entidad)
+        {
+            return entidad.Cantidad <= 0 ||
+                entidad.Total <= 0 ||
+                entidad.Empleado <= 0 ||
+                entidad.Proveedor <= 0 ||
+                entidad.Fecha == null;
+        }
+
     }
 }
