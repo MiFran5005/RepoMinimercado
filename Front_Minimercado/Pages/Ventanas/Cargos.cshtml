@@ -1,14 +1,14 @@
 ﻿@page
-@using carniceria_front.Pages.Ventanas
-@model CarneModel
+@using Front_Minimercado.Pages.Ventanas
+@model CargosModel
 @{
-    ViewData["Title"] = "Carnicería";
+    ViewData["Title"] = "Minimercado";
 }
 <form method="post"
     enctype="multipart/form-data">
 
     <div class="text-center">
-        <h1 class="display-4">Carne</h1>
+        <h1 class="display-4">Cargos</h1>
 
         <input type="submit"
             value="Buscar"
@@ -22,9 +22,9 @@
             value="Guardar"
             class="btn btn-secondary"
             asp-page-handler="BtGuardar"/>
-        <input id="flCorte" 
-            placeholder="Corte"
-            asp-for="@Model.Filtro!.Corte"/>
+        <input id="flTipoEmpleado"
+               placeholder="TipoEmpleado"
+               asp-for="@Model.Filtro!.TipoEmpleado" />
 
         @if (ViewData.ContainsKey("Mensaje"))
         {
@@ -41,48 +41,34 @@
         @if (Model.Formulario)
         {
             <div>
-                <h3>Carne</h3>
+                <h3>Cargos</h3>
                 
                 <label>
-                    Código
+                    TipoEmpleado
                 </label>
-                <input id="nmCodigo"
-                    asp-for="@Model.Actual!.Codigo" />
+                <input id="nmTipoEmpleado"
+                    asp-for="@Model.Actual!.TipoEmpleado" />
                 <br/>
 
                 <label>
-                    Corte
+                    Salario
                 </label>
-                <input id="nmCorte"
-                    asp-for="@Model.Actual!.Corte" />
+                <input id="nmSalario"
+                    asp-for="@Model.Actual!.Salario" />
                 <br />
 
                 <label>
-                    Precio
+                    Horario
                 </label>
-                <input id="nmPrecio"
-                    asp-for="@Model.Actual!.Precio" />
+                <input id="nmHorario"
+                    asp-for="@Model.Actual!.Horario" />
                 <br />
 
                 <label>
-                    FechaVencimiento
+                    Descripcion
                 </label>
-                <input id="nmFechaVencimiento"
-                    asp-for="@Model.Actual!.FechaVencimiento" />
-                <br />
-
-                <label>
-                    Activo
-                </label>
-                <input id="nmActivo"
-                       asp-for="@Model.Actual!.Activo" />
-                <br />
-
-                <label>
-                    Observaciones
-                </label>
-                <input id="nmObservaciones"
-                       asp-for="@Model.Actual!.Observaciones" />
+                <input id="nmDescripcion"
+                    asp-for="@Model.Actual!.Descripcion" />
                 <br />
             </div>
         }
@@ -118,12 +104,11 @@
             <div class="containers_vn panel panel-default">
                 <table class="tb_data table table-striped table-bordered table-hover">
                     <tr>
-                        <th>Código</th>
-                        <th>Corte</th>
-                        <th>Precio</th>
-                        <th>FechaVencimiento</th>
-                        <th>Activo</th>
-                        <th>Observaciones</th>
+                        <th>TipoEmpleado</th>
+                        <th>Salario</th>
+                        <th>Horario</th>
+                        <th>Descripcion</th>
+
                         <th>Acción</th>
                     </tr>
                     @if (Model != null && Model.Lista != null)
@@ -131,12 +116,10 @@
                         foreach (var elemento in Model.Lista)
                         {
                             <tr>
-                                <td>@elemento.Codigo</td>
-                                <td>@elemento.Corte</td>
-                                <td>@elemento.Precio</td>
-                                <td>@elemento.FechaVencimiento</td>
-                                <td>@elemento.Activo</td>
-                                <td>@elemento.Observaciones</td>
+                                <td>@elemento.TipoEmpleado</td>
+                                <td>@elemento.Salario</td>
+                                <td>@elemento.Horario</td>
+                                <td>@elemento.Descripcion</td>
                                 <td>
                                     <input type="submit" 
                                         value="Editar"

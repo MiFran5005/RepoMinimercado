@@ -1,14 +1,14 @@
 ﻿@page
-@using carniceria_front.Pages.Ventanas
-@model CarneModel
+@using Front_Minimercado.Pages.Ventanas
+@model ProveedoresModel
 @{
-    ViewData["Title"] = "Carnicería";
+    ViewData["Title"] = "Minimercado";
 }
 <form method="post"
     enctype="multipart/form-data">
 
     <div class="text-center">
-        <h1 class="display-4">Carne</h1>
+        <h1 class="display-4">Proveedores</h1>
 
         <input type="submit"
             value="Buscar"
@@ -22,9 +22,9 @@
             value="Guardar"
             class="btn btn-secondary"
             asp-page-handler="BtGuardar"/>
-        <input id="flCorte" 
-            placeholder="Corte"
-            asp-for="@Model.Filtro!.Corte"/>
+        <input id="flNombre" 
+            placeholder="Nombre"
+            asp-for="@Model.Filtro!.Nombre"/>
 
         @if (ViewData.ContainsKey("Mensaje"))
         {
@@ -41,7 +41,7 @@
         @if (Model.Formulario)
         {
             <div>
-                <h3>Carne</h3>
+                <h3>Proveedores</h3>
                 
                 <label>
                     Código
@@ -51,39 +51,27 @@
                 <br/>
 
                 <label>
-                    Corte
+                    Nombre
                 </label>
-                <input id="nmCorte"
-                    asp-for="@Model.Actual!.Corte" />
+                <input id="nmNombre"
+                    asp-for="@Model.Actual!.Nombre" />
                 <br />
 
                 <label>
-                    Precio
+                    Telefono
                 </label>
-                <input id="nmPrecio"
-                    asp-for="@Model.Actual!.Precio" />
+                <input id="nmTelefono"
+                    asp-for="@Model.Actual!.Telefono" />
                 <br />
 
                 <label>
-                    FechaVencimiento
+                    Dirección
                 </label>
-                <input id="nmFechaVencimiento"
-                    asp-for="@Model.Actual!.FechaVencimiento" />
+                <input id="nmDireccion"
+                    asp-for="@Model.Actual!.Direccion" />
                 <br />
 
-                <label>
-                    Activo
-                </label>
-                <input id="nmActivo"
-                       asp-for="@Model.Actual!.Activo" />
-                <br />
-
-                <label>
-                    Observaciones
-                </label>
-                <input id="nmObservaciones"
-                       asp-for="@Model.Actual!.Observaciones" />
-                <br />
+                
             </div>
         }
         
@@ -98,8 +86,9 @@
                     </h4>
                     <h6>
                         @Model.Actual!.Codigo,
-                        @Model.Actual!.Corte,
-                        @Model.Actual!.Precio
+                        @Model.Actual!.Nombre,
+                        @Model.Actual!.Telefono
+                        @Model.Actual!.Direccion
                     </h6>
                     <input type="submit"
                         value="Cancelar"
@@ -119,12 +108,9 @@
                 <table class="tb_data table table-striped table-bordered table-hover">
                     <tr>
                         <th>Código</th>
-                        <th>Corte</th>
-                        <th>Precio</th>
-                        <th>FechaVencimiento</th>
-                        <th>Activo</th>
-                        <th>Observaciones</th>
-                        <th>Acción</th>
+                        <th>Nombre</th>
+                        <th>Telefono</th>
+                        <th>Dirección</th>
                     </tr>
                     @if (Model != null && Model.Lista != null)
                     {
@@ -132,11 +118,10 @@
                         {
                             <tr>
                                 <td>@elemento.Codigo</td>
-                                <td>@elemento.Corte</td>
-                                <td>@elemento.Precio</td>
-                                <td>@elemento.FechaVencimiento</td>
-                                <td>@elemento.Activo</td>
-                                <td>@elemento.Observaciones</td>
+                                <td>@elemento.Nombre</td>
+                                <td>@elemento.Telefono</td>
+                                <td>@elemento.Direccion</td>
+                                
                                 <td>
                                     <input type="submit" 
                                         value="Editar"

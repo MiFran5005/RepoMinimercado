@@ -1,8 +1,8 @@
 ﻿@page
-@using carniceria_front.Pages.Ventanas
+@using Front_Minimercado.Pages.Ventanas
 @model CarneModel
 @{
-    ViewData["Title"] = "Carnicería";
+    ViewData["Title"] = "Minimercado";
 }
 <form method="post"
     enctype="multipart/form-data">
@@ -22,9 +22,9 @@
             value="Guardar"
             class="btn btn-secondary"
             asp-page-handler="BtGuardar"/>
-        <input id="flCorte" 
-            placeholder="Corte"
-            asp-for="@Model.Filtro!.Corte"/>
+        <input id="flPlaca" 
+            placeholder="Placa"
+            asp-for="@Model.Filtro!.Placa"/>
 
         @if (ViewData.ContainsKey("Mensaje"))
         {
@@ -51,39 +51,27 @@
                 <br/>
 
                 <label>
-                    Corte
+                    Nombre
                 </label>
-                <input id="nmCorte"
-                    asp-for="@Model.Actual!.Corte" />
+                <input id="nmNombre"
+                    asp-for="@Model.Actual!.Nombre" />
                 <br />
 
                 <label>
-                    Precio
+                    Placa
                 </label>
-                <input id="nmPrecio"
-                    asp-for="@Model.Actual!.Precio" />
+                <input id="nmPlaca"
+                    asp-for="@Model.Actual!.Placa" />
                 <br />
 
                 <label>
-                    FechaVencimiento
+                    Tipo
+
                 </label>
-                <input id="nmFechaVencimiento"
-                    asp-for="@Model.Actual!.FechaVencimiento" />
+                <input id="nmTipo"
+                    asp-for="@Model.Actual!.Tipo" />
                 <br />
 
-                <label>
-                    Activo
-                </label>
-                <input id="nmActivo"
-                       asp-for="@Model.Actual!.Activo" />
-                <br />
-
-                <label>
-                    Observaciones
-                </label>
-                <input id="nmObservaciones"
-                       asp-for="@Model.Actual!.Observaciones" />
-                <br />
             </div>
         }
         
@@ -98,8 +86,9 @@
                     </h4>
                     <h6>
                         @Model.Actual!.Codigo,
-                        @Model.Actual!.Corte,
-                        @Model.Actual!.Precio
+                        @Model.Actual!.Nombre,
+                        @Model.Actual!.Placa
+                        @Model.Actual!.Tipo
                     </h6>
                     <input type="submit"
                         value="Cancelar"
@@ -119,12 +108,10 @@
                 <table class="tb_data table table-striped table-bordered table-hover">
                     <tr>
                         <th>Código</th>
-                        <th>Corte</th>
-                        <th>Precio</th>
-                        <th>FechaVencimiento</th>
-                        <th>Activo</th>
-                        <th>Observaciones</th>
-                        <th>Acción</th>
+                        <th>Nombre</th>
+                        <th>Placa</th>
+                        <th>Tipo</th>
+                       
                     </tr>
                     @if (Model != null && Model.Lista != null)
                     {
@@ -132,11 +119,9 @@
                         {
                             <tr>
                                 <td>@elemento.Codigo</td>
-                                <td>@elemento.Corte</td>
-                                <td>@elemento.Precio</td>
-                                <td>@elemento.FechaVencimiento</td>
-                                <td>@elemento.Activo</td>
-                                <td>@elemento.Observaciones</td>
+                                <td>@elemento.Nombre</td>
+                                <td>@elemento.Placa</td>
+                                <td>@elemento.Tipo</td>
                                 <td>
                                     <input type="submit" 
                                         value="Editar"

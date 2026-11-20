@@ -1,14 +1,14 @@
 ﻿@page
-@using carniceria_front.Pages.Ventanas
-@model CarneModel
+@using Front_Minimercado.Pages.Ventanas
+@model HorariosModel
 @{
-    ViewData["Title"] = "Carnicería";
+    ViewData["Title"] = "Minimercado";
 }
 <form method="post"
     enctype="multipart/form-data">
 
     <div class="text-center">
-        <h1 class="display-4">Carne</h1>
+        <h1 class="display-4">Horarios</h1>
 
         <input type="submit"
             value="Buscar"
@@ -22,9 +22,9 @@
             value="Guardar"
             class="btn btn-secondary"
             asp-page-handler="BtGuardar"/>
-        <input id="flCorte" 
-            placeholder="Corte"
-            asp-for="@Model.Filtro!.Corte"/>
+        <input id="flTurno" 
+            placeholder="Turno"
+            asp-for="@Model.Filtro!.Turno"/>
 
         @if (ViewData.ContainsKey("Mensaje"))
         {
@@ -41,49 +41,37 @@
         @if (Model.Formulario)
         {
             <div>
-                <h3>Carne</h3>
+                <h3>Horarios</h3>
                 
                 <label>
-                    Código
+                    HoraInicio
                 </label>
-                <input id="nmCodigo"
-                    asp-for="@Model.Actual!.Codigo" />
+                <input id="nmHoraInicio"
+                    asp-for="@Model.Actual!.HoraInicio" />
                 <br/>
 
                 <label>
-                    Corte
+                    HoraFinal
                 </label>
-                <input id="nmCorte"
-                    asp-for="@Model.Actual!.Corte" />
+                <input id="nmHoraFinal"
+                    asp-for="@Model.Actual!.HoraFinal" />
                 <br />
 
                 <label>
-                    Precio
+                    Dia
                 </label>
-                <input id="nmPrecio"
-                    asp-for="@Model.Actual!.Precio" />
+                <input id="nmDia"
+                    asp-for="@Model.Actual!.Dia" />
                 <br />
 
                 <label>
-                    FechaVencimiento
+                    Turno
                 </label>
-                <input id="nmFechaVencimiento"
-                    asp-for="@Model.Actual!.FechaVencimiento" />
+                <input id="nmTurno"
+                    asp-for="@Model.Actual!.Turno" />
                 <br />
 
-                <label>
-                    Activo
-                </label>
-                <input id="nmActivo"
-                       asp-for="@Model.Actual!.Activo" />
-                <br />
-
-                <label>
-                    Observaciones
-                </label>
-                <input id="nmObservaciones"
-                       asp-for="@Model.Actual!.Observaciones" />
-                <br />
+               
             </div>
         }
         
@@ -97,9 +85,10 @@
                         ¿Desea borrar la entidad...?
                     </h4>
                     <h6>
-                        @Model.Actual!.Codigo,
-                        @Model.Actual!.Corte,
-                        @Model.Actual!.Precio
+                        @Model.Actual!.HoraInicio,
+                        @Model.Actual!.HoraFinal,
+                        @Model.Actual!.Dia,
+                        @Model.Actual!.Turno
                     </h6>
                     <input type="submit"
                         value="Cancelar"
@@ -118,12 +107,11 @@
             <div class="containers_vn panel panel-default">
                 <table class="tb_data table table-striped table-bordered table-hover">
                     <tr>
-                        <th>Código</th>
-                        <th>Corte</th>
-                        <th>Precio</th>
-                        <th>FechaVencimiento</th>
-                        <th>Activo</th>
-                        <th>Observaciones</th>
+                        <th>HoraInicio</th>
+                        <th>HoraFinal</th>
+                        <th>Dia</th>
+                        <th>Turno</th>
+
                         <th>Acción</th>
                     </tr>
                     @if (Model != null && Model.Lista != null)
@@ -131,12 +119,10 @@
                         foreach (var elemento in Model.Lista)
                         {
                             <tr>
-                                <td>@elemento.Codigo</td>
-                                <td>@elemento.Corte</td>
-                                <td>@elemento.Precio</td>
-                                <td>@elemento.FechaVencimiento</td>
-                                <td>@elemento.Activo</td>
-                                <td>@elemento.Observaciones</td>
+                                <td>@elemento.HoraInicio</td>
+                                <td>@elemento.HoraFinal</td>
+                                <td>@elemento.Dia</td>
+                                <td>@elemento.Turno</td>
                                 <td>
                                     <input type="submit" 
                                         value="Editar"

@@ -1,14 +1,14 @@
 ﻿@page
-@using carniceria_front.Pages.Ventanas
-@model CarneModel
+@using Front_Minimercado.Pages.Ventanas
+@model DetallesModel
 @{
-    ViewData["Title"] = "Carnicería";
+    ViewData["Title"] = "Minimercado";
 }
 <form method="post"
     enctype="multipart/form-data">
 
     <div class="text-center">
-        <h1 class="display-4">Carne</h1>
+        <h1 class="display-4">Detalles</h1>
 
         <input type="submit"
             value="Buscar"
@@ -22,9 +22,9 @@
             value="Guardar"
             class="btn btn-secondary"
             asp-page-handler="BtGuardar"/>
-        <input id="flCorte" 
-            placeholder="Corte"
-            asp-for="@Model.Filtro!.Corte"/>
+        <input id="flFactura" 
+            placeholder="Factura"
+            asp-for="@Model.Filtro!.Factura"/>
 
         @if (ViewData.ContainsKey("Mensaje"))
         {
@@ -41,48 +41,48 @@
         @if (Model.Formulario)
         {
             <div>
-                <h3>Carne</h3>
+                <h3>Detalles</h3>
                 
                 <label>
-                    Código
+                    Factura
                 </label>
-                <input id="nmCodigo"
-                    asp-for="@Model.Actual!.Codigo" />
+                <input id="nmFactura"
+                    asp-for="@Model.Actual!.Factura" />
                 <br/>
 
                 <label>
-                    Corte
+                    Producto
                 </label>
-                <input id="nmCorte"
-                    asp-for="@Model.Actual!.Corte" />
+                <input id="nmProducto"
+                    asp-for="@Model.Actual!.Producto" />
                 <br />
 
                 <label>
-                    Precio
+                    Cliente
                 </label>
-                <input id="nmPrecio"
-                    asp-for="@Model.Actual!.Precio" />
+                <input id="nmCliente"
+                    asp-for="@Model.Actual!.Cliente" />
                 <br />
 
                 <label>
-                    FechaVencimiento
+                    Domicilio
                 </label>
-                <input id="nmFechaVencimiento"
-                    asp-for="@Model.Actual!.FechaVencimiento" />
+                <input id="nmDomicilio"
+                    asp-for="@Model.Actual!.Domicilio" />
                 <br />
 
                 <label>
-                    Activo
+                    Estado
                 </label>
-                <input id="nmActivo"
-                       asp-for="@Model.Actual!.Activo" />
+                <input id="nmEstado"
+                       asp-for="@Model.Actual!.Estado" />
                 <br />
 
                 <label>
-                    Observaciones
+                    Metodo_Pago
                 </label>
-                <input id="nmObservaciones"
-                       asp-for="@Model.Actual!.Observaciones" />
+                <input id="nmMetodo_Pago"
+                       asp-for="@Model.Actual!.Metodo_Pago" />
                 <br />
             </div>
         }
@@ -97,9 +97,12 @@
                         ¿Desea borrar la entidad...?
                     </h4>
                     <h6>
-                        @Model.Actual!.Codigo,
-                        @Model.Actual!.Corte,
-                        @Model.Actual!.Precio
+                        @Model.Actual!.Factura,
+                        @Model.Actual!.Producto,
+                        @Model.Actual!.Cliente,
+                        @Model.Actual!.Domicilio,
+                        @Model.Actual!.Estado,
+                        @Model.Actual!.Metodo_Pago
                     </h6>
                     <input type="submit"
                         value="Cancelar"
@@ -118,25 +121,25 @@
             <div class="containers_vn panel panel-default">
                 <table class="tb_data table table-striped table-bordered table-hover">
                     <tr>
-                        <th>Código</th>
-                        <th>Corte</th>
-                        <th>Precio</th>
-                        <th>FechaVencimiento</th>
-                        <th>Activo</th>
-                        <th>Observaciones</th>
-                        <th>Acción</th>
+                        <th>Factura</th>
+                        <th>Producto</th>
+                        <th>Cliente</th>
+                        <th>Domicilio</th>
+                        <th>Estado</th>
+                        <th>Metodo_Pago</th>
+                      
                     </tr>
                     @if (Model != null && Model.Lista != null)
                     {
                         foreach (var elemento in Model.Lista)
                         {
                             <tr>
-                                <td>@elemento.Codigo</td>
-                                <td>@elemento.Corte</td>
-                                <td>@elemento.Precio</td>
-                                <td>@elemento.FechaVencimiento</td>
-                                <td>@elemento.Activo</td>
-                                <td>@elemento.Observaciones</td>
+                                <td>@elemento.Factura</td>
+                                <td>@elemento.Producto</td>
+                                <td>@elemento.Cliente</td>
+                                <td>@elemento.Domicilio</td>
+                                <td>@elemento.Estado</td>
+                                <td>@elemento.Metodo_Pago</td>
                                 <td>
                                     <input type="submit" 
                                         value="Editar"
