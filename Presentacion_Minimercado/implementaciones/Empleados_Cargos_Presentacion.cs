@@ -4,7 +4,7 @@ using Presentacion_Minimercado.interfaces;
 
 namespace Presentacion_Minimercado.implementaciones
 {
-    public class Empleados_Cargos_Presentacion : IEmpleados_Cargos_Aplicacion
+    public class Empleados_Cargos_Presentacion : IEmpleados_Cargos_Presentacion
     {
        
             private IComunicaciones IComunicaciones;

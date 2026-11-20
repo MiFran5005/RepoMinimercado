@@ -2,7 +2,7 @@
 
 namespace Presentacion_Minimercado.implementaciones
 {
-    public interface IEmpleados_Cargos_Aplicacion
+    public interface IEmpleados_Cargos_Presentacion
     {
         Empleados_Cargos Insertar(Empleados_Cargos entidad);
         List<Empleados_Cargos> Consultar();

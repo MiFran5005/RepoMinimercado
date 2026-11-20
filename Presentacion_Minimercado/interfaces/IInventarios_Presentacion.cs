@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Presentacion_Minimercado.implementaciones
 {
-    public interface IInventarios_Aplicacion
+    public interface IInventarios_Presentacion
     {
         Inventarios Insertar(Inventarios entidad);
         List<Inventarios> Consultar();
