@@ -2,5 +2,6 @@
   <Project Path="API_Minimercado/API_Minimercado.csproj" Id="f36dcc2d-91fe-4b83-b70a-f06016a48a33" />
   <Project Path="App_Minimercado/App_Minimercado.csproj" />
   <Project Path="Lib_Minimercado/Lib_Minimercado.csproj" />
+  <Project Path="Presentacion_Minimercado/Presentacion_Minimercado.csproj" Id="a41e4708-fab3-47a0-a27d-74c4fee04e1d" />
   <Project Path="Test_Minimercado/Test_Minimercado.csproj" />
 </Solution>

@@ -14,15 +14,15 @@ namespace Test_Minimercado
         public Salarios_Test()
         {
             this.conexion.StringConexion = Datos_Generales.ObtenerStringConexion();
-
-            [TestMethod]
-        public void Ejecutar()
-        {
-            Insertar();
-            Consultar();
-            Actualizar();
-            Borrar();
         }
+            [TestMethod]
+            public void Ejecutar()
+            {
+                Insertar();
+                Consultar();
+                Actualizar();
+                Borrar();
+            }
 
         private void Insertar()
         {

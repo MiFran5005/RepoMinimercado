@@ -1,0 +1,16 @@
+﻿using Lib_Minimercado.entidades;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Presentacion_Minimercado.implementaciones
+{
+    public interface IPedidos_Presentacion
+    {
+        Pedidos Insertar(Pedidos entidad);
+        List<Pedidos> Consultar();
+        Pedidos Actualizar(Pedidos entidad);
+        Pedidos Borrar(Pedidos entidad);
+        List<Pedidos> Buscar(Pedidos entidad);
+    }
+}
