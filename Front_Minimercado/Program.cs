@@ -30,6 +30,10 @@ builder.Services.AddScoped<IProductos_Presentacion, Productos_Presentacion>();
 builder.Services.AddScoped<IProveedores_Presentacion, Proveedores_Presentacion>();
 builder.Services.AddScoped<ISalarios_Presentacion, Salarios_Presentacion>();
 builder.Services.AddScoped<IVehiculos_Presentacion, Vehiculos_Presentacion>();
+builder.Services.AddScoped<IRoles_Presentacion, Roles_Presentacion>();
+builder.Services.AddScoped<IPermisos_Presentacion, Permisos_Presentacion>();
+builder.Services.AddScoped<IUsuarios_Presentacion, Usuarios_Presentacion>();
+builder.Services.AddScoped<IAuditorias_Presentacion, Auditorias_Presentacion>();
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

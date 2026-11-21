@@ -38,5 +38,9 @@ namespace Lib_Minimercado.implementaciones
         public DbSet<Proveedores>? Proveedores { get; set; }
         public DbSet<Salarios>? Salarios { get; set; }
         public DbSet<Vehiculos>? Vehiculos { get; set; }
+        public DbSet<Roles>? Roles { get; set; }
+        public DbSet<Permisos>? Permisos { get; set; }
+        public DbSet<Usuarios>? Usuarios { get; set; }
+        public DbSet<Auditorias>? Auditorias { get; set; }
     }
 }

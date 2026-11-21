@@ -31,7 +31,10 @@ namespace Lib_Minimercado.interfaces
          DbSet<Proveedores>? Proveedores { get; set; }
          DbSet<Salarios>? Salarios { get; set; }
          DbSet<Vehiculos>? Vehiculos { get; set; }
-
+        DbSet<Roles>? Roles { get; set; }
+        DbSet<Permisos>? Permisos { get; set; }
+        DbSet<Usuarios>? Usuarios { get; set; }
+        DbSet<Auditorias>? Auditorias { get; set; }
         EntityEntry<T> Entry<T>(T entity) where T : class;
         int SaveChanges();
     }
