@@ -20,7 +20,10 @@ namespace Presentacion_Minimercado.implementaciones
             var message = await cliente_http.PostAsync(url, body);
 
             if (!message.IsSuccessStatusCode)
-                throw new Exception("Error Comunicacion");
+            {
+                var detalle = await message.Content.ReadAsStringAsync();
+                throw new Exception($"Error Comunicacion: {(int)message.StatusCode} - {url} - {detalle}");
+            }
 
             var respuesta = await message.Content.ReadAsStringAsync();
             cliente_http.Dispose(); 

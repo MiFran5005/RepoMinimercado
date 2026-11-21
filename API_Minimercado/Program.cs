@@ -3,7 +3,10 @@ using Lib_Minimercado.interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(o =>
+{
+    o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+});
 builder.Services.AddScoped<IConexion, Conexion>();
 builder.Services.AddScoped<ICargos_Aplicacion, Cargos_Aplicacion>();
 builder.Services.AddScoped<ICategorias_Aplicacion, Categorias_Aplicacion>();
@@ -35,3 +38,4 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapGet("/", () => "");
 app.Run();
+

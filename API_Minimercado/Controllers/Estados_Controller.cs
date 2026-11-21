@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API_Minimercado.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("Estados/[action]")]
     public class Estados_Controller : ControllerBase
     {
         private IEstados_Aplicacion IEstadosAplicacion;

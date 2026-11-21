@@ -1,5 +1,6 @@
 ﻿using Lib_Minimercado.entidades;
 using Lib_Minimercado.interfaces;
+using Lib_Minimercado.Nucleo;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Lib_Minimercado.implementaciones
 {
     public class Conexion : DbContext, IConexion
     {
-        public string? StringConexion { get; set; }
+        public string? StringConexion { get; set; } = Datos_Generales.ObtenerStringConexion();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
