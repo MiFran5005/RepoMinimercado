@@ -1,6 +1,6 @@
 ﻿@page
 @using Front_Minimercado.Pages.Ventanas
-@model ProductoModel
+@model ProductosModel
 @{
     ViewData["Title"] = "Minimercado";
 }
@@ -91,10 +91,10 @@
                        asp-for="@Model.Actual!.Inventario" />
                 <br />
                     <label>
-                    Maraca
+                    Marca
                 </label>
-                <input id="nmMaraca"
-                       asp-for="@Model.Actual!.Maraca" />
+                <input id="nmMarca"
+                       asp-for="@Model.Actual!.Marca" />
                 <br />
                 <label>
                     Categoria
@@ -122,7 +122,7 @@
                         @Model.Actual!.Proveedor,
                         @Model.Actual!.Estante,
                         @Model.Actual!.Inventario,
-                        @Model.Actual!.Maraca
+                        @Model.Actual!.Marca
                         @Model.Actual!.Categoria
                     </h6>
                     <input type="submit"
@@ -149,7 +149,7 @@
                         <th>Proveedor</th>
                         <th>Estante</th>
                         <th>Inventario</th>
-                        <th>Maraca</th> 
+                        <th>Marca</th> 
                         <th>Categoria</th> 
                     </tr>
                     @if (Model != null && Model.Lista != null)
@@ -164,7 +164,7 @@
                                 <td>@elemento.Proveedor</td>
                                 <td>@elemento.Estante</td>
                                 <td>@elemento.Inventario</td>
-                                <td>@elemento.Maraca</td>
+                                <td>@elemento.Marca</td>
                                 <td>@elemento.Categoria</td>
                                 <td>
                                     <input type="submit" 

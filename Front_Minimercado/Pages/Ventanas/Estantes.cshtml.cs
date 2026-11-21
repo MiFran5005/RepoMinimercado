@@ -14,7 +14,7 @@ namespace Front_Minimercado.Pages.Ventanas
         public EstantesModel(IEstantes_Presentacion IEstantes_Presentacion)
         {
             this.IEstantes_Presentacion = IEstantes_Presentacion;
-            this.Filtro = new Estantes_();
+            this.Filtro = new Estantes();
         }
 
         [BindProperty] public List<Estantes> Lista { get; set; }
