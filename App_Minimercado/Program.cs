@@ -27,6 +27,10 @@ try
     var lista_proveedores = conexion.Proveedores!.ToList();
     var lista_salarios = conexion.Salarios!.ToList();
     var lista_vehiculos = conexion.Vehiculos!.ToList();
+    var lista_roles = conexion.Roles!.ToList();
+    var lista_permisos = conexion.Permisos!.ToList();
+    var lista_usuarios = conexion.Usuarios!.ToList();
+    var lista_auditorias = conexion.Auditorias!.ToList();
 }
 catch (Exception ex)
 {

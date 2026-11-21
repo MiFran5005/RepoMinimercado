@@ -303,4 +303,52 @@ INSERT INTO [Detalles] ([Factura], [Producto], [Cliente], [Domicilio], [Estado],
 VALUES (1, 1, 1, 1, 1, 1);
 
 SELECT * FROM [Detalles];
+
+
+
+CREATE TABLE Roles (
+    Id          INT IDENTITY(1,1) NOT NULL,
+    Nombre      NVARCHAR(50)  NOT NULL,
+    Descripcion NVARCHAR(200) NULL,
+    CONSTRAINT PK_Roles PRIMARY KEY (Id),
+    CONSTRAINT UQ_Roles_Nombre UNIQUE (Nombre)
+);
+GO
+
+CREATE TABLE Permisos (
+    Id          INT IDENTITY(1,1) NOT NULL,
+    Nombre      NVARCHAR(100) NOT NULL,
+    Descripcion NVARCHAR(200) NULL,
+    Rol         INT NOT NULL,
+    CONSTRAINT PK_Permisos PRIMARY KEY (Id),
+    CONSTRAINT FK_Permisos_Roles FOREIGN KEY (Rol) REFERENCES Roles (Id)
+);
+GO
+
+CREATE TABLE Usuarios (
+    Id            INT IDENTITY(1,1) NOT NULL,
+    NombreUsuario NVARCHAR(50)  NOT NULL,
+    Contrasena    NVARCHAR(128) NOT NULL,
+    Rol           INT NOT NULL,
+    Empleado      INT NULL,
+    Cliente       INT NULL,
+    CONSTRAINT PK_Usuarios PRIMARY KEY (Id),
+    CONSTRAINT UQ_Usuarios_NombreUsuario UNIQUE (NombreUsuario),
+    CONSTRAINT FK_Usuarios_Roles     FOREIGN KEY (Rol)      REFERENCES Roles (Id),
+    CONSTRAINT FK_Usuarios_Empleados FOREIGN KEY (Empleado) REFERENCES Empleados (Id),
+    CONSTRAINT FK_Usuarios_Clientes  FOREIGN KEY (Cliente)  REFERENCES Clientes (Id)
+);
+GO
+
+CREATE TABLE Auditorias (
+    Id      INT IDENTITY(1,1) NOT NULL,
+    Usuario INT NOT NULL,
+    Accion  NVARCHAR(50)  NOT NULL,
+    Entidad NVARCHAR(50)  NOT NULL,
+    Detalle NVARCHAR(500) NULL,
+    Fecha   DATETIME2     NOT NULL,
+    CONSTRAINT PK_Auditorias PRIMARY KEY (Id),
+    CONSTRAINT FK_Auditorias_Usuarios FOREIGN KEY (Usuario) REFERENCES Usuarios (Id)
+);
+GO
 */

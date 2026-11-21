@@ -34,6 +34,10 @@ builder.Services.AddScoped<IRoles_Presentacion, Roles_Presentacion>();
 builder.Services.AddScoped<IPermisos_Presentacion, Permisos_Presentacion>();
 builder.Services.AddScoped<IUsuarios_Presentacion, Usuarios_Presentacion>();
 builder.Services.AddScoped<IAuditorias_Presentacion, Auditorias_Presentacion>();
+
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(o => o.IdleTimeout = TimeSpan.FromMinutes(30));
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -42,6 +46,8 @@ if (!app.Environment.IsDevelopment())
 
     app.UseHsts();
 }
+
+app.UseSession();
 
 app.UseHttpsRedirection();
 
@@ -53,5 +59,4 @@ app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
 
-app.Run();
 app.Run();
