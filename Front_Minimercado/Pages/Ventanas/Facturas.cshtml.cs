@@ -10,13 +10,16 @@ namespace Front_Minimercado.Pages.Ventanas
     public class FacturasModel : PageModel
     {
         private IFacturas_Presentacion IFacturas_Presentacion;
+        private IEmpleados_Presentacion IEmpleados_Presentacion;
 
-        public FacturasModel(IFacturas_Presentacion IFacturas_Presentacion)
+        public FacturasModel(IFacturas_Presentacion IFacturas_Presentacion,
+            IEmpleados_Presentacion IEmpleados_Presentacion)
         {
             this.IFacturas_Presentacion = IFacturas_Presentacion;
+            this.IEmpleados_Presentacion = IEmpleados_Presentacion;
             this.Filtro = new Facturas();
         }
-
+        [BindProperty] public List<Empleados> Empleados { get; set; }
         [BindProperty] public List<Facturas> Lista { get; set; }
         [BindProperty] public Facturas? Filtro { get; set; }
         [BindProperty] public Facturas? Actual { get; set; }
@@ -44,6 +47,7 @@ namespace Front_Minimercado.Pages.Ventanas
             {
                 Formulario = true;
                 this.Actual = new Facturas();
+                this.Empleados = this.IEmpleados_Presentacion.Buscar(new Empleados());
             }
             catch (Exception ex)
             {
@@ -77,6 +81,7 @@ namespace Front_Minimercado.Pages.Ventanas
                 Formulario = true;
                 OnPostBtBuscar();
                 Actual = this.Lista.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                this.Empleados = this.IEmpleados_Presentacion.Buscar(new Empleados());
             }
             catch (Exception ex)
             {

@@ -18,7 +18,7 @@ namespace Front_Minimercado.Pages.Ventanas
             this.IUsuarios_Presentacion = IUsuarios_Presentacion;
             this.Filtro = new Auditorias();
         }
-
+        public IFormFile? FormFile { get; set; }
         [BindProperty] public List<Auditorias> Lista { get; set; } = new();
         [BindProperty] public Auditorias? Filtro { get; set; }
 

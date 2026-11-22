@@ -10,13 +10,33 @@ namespace Front_Minimercado.Pages.Ventanas
     public class ProductosModel : PageModel
     {
         private IProductos_Presentacion IProductos_Presentacion;
+        private IProveedores_Presentacion IProveedores_Presentacion;
+        private IEstantes_Presentacion IEstantes_Presentacion;
+        private IInventarios_Presentacion IInventarios_Presentacion;
+        private IMarcas_Presentacion IMarcas_Presentacion;
+        private ICategorias_Presentacion ICategorias_Presentacion;
 
-        public ProductosModel(IProductos_Presentacion IProductos_Presentacion)
+        public ProductosModel(IProductos_Presentacion IProductos_Presentacion,
+            IProveedores_Presentacion IProveedores_Presentacion,
+            IEstantes_Presentacion IEstantes_Presentacion,
+            IInventarios_Presentacion IInventarios_Presentacion,
+            IMarcas_Presentacion IMarcas_Presentacion,
+            ICategorias_Presentacion ICategorias_Presentacion)
         {
             this.IProductos_Presentacion = IProductos_Presentacion;
+            this.IProveedores_Presentacion = IProveedores_Presentacion;
+            this.IEstantes_Presentacion = IEstantes_Presentacion;
+            this.IInventarios_Presentacion = IInventarios_Presentacion;
+            this.IMarcas_Presentacion = IMarcas_Presentacion;
+            this.ICategorias_Presentacion = ICategorias_Presentacion;
             this.Filtro = new Productos();
         }
-        [BindProperty] public IFormFile? FormFile { get; set; }
+       public IFormFile? FormFile { get; set; }
+        [BindProperty] public List<Proveedores> Proveedores { get; set; }
+        [BindProperty] public List<Estantes> Estantes { get; set; }
+        [BindProperty] public List<Inventarios> Inventarios { get; set; }
+        [BindProperty] public List<Marcas> Marcas { get; set; }
+        [BindProperty] public List<Categorias> Categorias { get; set; }
         [BindProperty] public List<Productos> Lista { get; set; }
         [BindProperty] public Productos? Filtro { get; set; }   
         [BindProperty] public Productos? Actual { get; set; }
@@ -44,6 +64,11 @@ namespace Front_Minimercado.Pages.Ventanas
             {
                 Formulario = true;
                 this.Actual = new Productos();
+                this.Proveedores = this.IProveedores_Presentacion.Buscar(new Proveedores());
+                this.Estantes = this.IEstantes_Presentacion.Buscar(new Estantes());
+                this.Inventarios = this.IInventarios_Presentacion.Buscar(new Inventarios());
+                this.Marcas = this.IMarcas_Presentacion.Buscar(new Marcas());
+                this.Categorias = this.ICategorias_Presentacion.Buscar(new Categorias());
             }
             catch (Exception ex)
             {
@@ -84,6 +109,11 @@ namespace Front_Minimercado.Pages.Ventanas
                 Formulario = true;
                 OnPostBtBuscar();
                 Actual = this.Lista.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                this.Proveedores = this.IProveedores_Presentacion.Buscar(new Proveedores());
+                this.Estantes = this.IEstantes_Presentacion.Buscar(new Estantes());
+                this.Inventarios = this.IInventarios_Presentacion.Buscar(new Inventarios());
+                this.Marcas = this.IMarcas_Presentacion.Buscar(new Marcas());
+                this.Categorias = this.ICategorias_Presentacion.Buscar(new Categorias());
             }
             catch (Exception ex)
             {

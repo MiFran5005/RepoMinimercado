@@ -10,13 +10,19 @@ namespace Front_Minimercado.Pages.Ventanas
     public class DomiciliosModel : PageModel
     {
         private IDomicilios_Presentacion IDomicilios_Presentacion;
-
-        public DomiciliosModel(IDomicilios_Presentacion IDomicilios_Presentacion)
+        private IEmpleados_Presentacion IEmpleados_Presentacion;
+        private IVehiculos_Presentacion IVehiculos_Presentacion;
+        public DomiciliosModel(IDomicilios_Presentacion IDomicilios_Presentacion,
+                                IEmpleados_Presentacion IEmpleados_Presentacion,
+                                IVehiculos_Presentacion IVehiculos_Presentacion)
         {
             this.IDomicilios_Presentacion = IDomicilios_Presentacion;
+            this.IEmpleados_Presentacion = IEmpleados_Presentacion;
+            this.IVehiculos_Presentacion = IVehiculos_Presentacion;
             this.Filtro = new Domicilios();
         }
-
+        [BindProperty] public List<Empleados> Empleados { get; set; }
+        [BindProperty] public List<Vehiculos> Vehiculos { get; set; }
         [BindProperty] public List<Domicilios> Lista { get; set; }
         [BindProperty] public Domicilios? Filtro { get; set; }
         [BindProperty] public Domicilios? Actual { get; set; }
@@ -44,6 +50,8 @@ namespace Front_Minimercado.Pages.Ventanas
             {
                 Formulario = true;
                 this.Actual = new Domicilios();
+                this.Empleados = this.IEmpleados_Presentacion.Buscar(new Empleados());
+                this.Vehiculos = this.IVehiculos_Presentacion.Buscar(new Vehiculos());
             }
             catch (Exception ex)
             {
@@ -77,6 +85,8 @@ namespace Front_Minimercado.Pages.Ventanas
                 Formulario = true;
                 OnPostBtBuscar();
                 Actual = this.Lista.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                this.Empleados = this.IEmpleados_Presentacion.Buscar(new Empleados());
+                this.Vehiculos = this.IVehiculos_Presentacion.Buscar(new Vehiculos());
             }
             catch (Exception ex)
             {

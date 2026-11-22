@@ -67,8 +67,10 @@
                 <label>
                     Empleado
                 </label>
-                <input id="nmEmpleado"
-                    asp-for="@Model.Actual!.Empleado" />
+                <select id="nmEmpleado"
+                    asp-for="@Model.Actual!.Empleado"
+                    asp-items="@(new SelectList(Model.Empleados, "Id", "Nombre"))">
+                </select>
                 <br />
 
                 

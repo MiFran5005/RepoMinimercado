@@ -74,33 +74,43 @@
                 <label>
                     Proveedor
                 </label>
-                <input id="nmProveedor"
-                       asp-for="@Model.Actual!.Proveedor" />
+                <select id="nmProveedor"
+                    asp-for="@Model.Actual!.Proveedor"
+                    asp-items="@(new SelectList(Model.Proveedores, "Id", "Nombre"))">
+                </select>
                 <br />
 
                 <label>
                     Estante
                 </label>
-                <input id="nmEstante"
-                       asp-for="@Model.Actual!.Estante" />
+                <select id="nmEstante"
+                    asp-for="@Model.Actual!.Estante"
+                    asp-items="@(new SelectList(Model.Estantes, "Id", "Nombre"))">
+                </select>
                 <br />
                 <label>
                     Inventario
                 </label>
-                <input id="nmInventario"
-                       asp-for="@Model.Actual!.Inventario" />
+                <select id="nmInventario"
+                    asp-for="@Model.Actual!.Inventario"
+                    asp-items="@(new SelectList(Model.Inventarios, "Id", "Cantidad"))">
+                </select>
                 <br />
                     <label>
                     Marca
                 </label>
-                <input id="nmMarca"
-                       asp-for="@Model.Actual!.Marca" />
+                <select id="nmMarca"
+                    asp-for="@Model.Actual!.Marca"
+                    asp-items="@(new SelectList(Model.Marcas, "Id", "Nombre"))">
+                </select>
                 <br />
                 <label>
                     Categoria
                 </label>
-                <input id="nmCategoria"
-                       asp-for="@Model.Actual!.Categoria" />
+                <select id="nmCategoria"
+                    asp-for="@Model.Actual!.Categoria"
+                    asp-items="@(new SelectList(Model.Categorias, "Id", "Nombre"))">
+                </select>
                 <br />
                 <label>
                     Imagen

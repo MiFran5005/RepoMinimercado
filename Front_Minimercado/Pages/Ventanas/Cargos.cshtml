@@ -44,25 +44,29 @@
                 <h3>Cargos</h3>
                 
                 <label>
-                    TipoEmpleado
-                </label>
-                <input id="nmTipoEmpleado"
-                    asp-for="@Model.Actual!.TipoEmpleado" />
-                <br/>
-
-                <label>
                     Salario
                 </label>
-                <input id="nmSalario"
-                    asp-for="@Model.Actual!.Salario" />
+                <select id="nmSalario"
+                    asp-for="@Model.Actual!.Salario"
+                    asp-items="@(new SelectList(Model.Salarios, "Id", "Monto"))">
+                </select>
                 <br />
 
                 <label>
                     Horario
                 </label>
-                <input id="nmHorario"
-                    asp-for="@Model.Actual!.Horario" />
+                <select id="nmHorario"
+                    asp-for="@Model.Actual!.Horario"
+                    asp-items="@(new SelectList(Model.Horarios, "Id", "Turno"))">
+                </select>
                 <br />
+
+                <label>
+                    TipoEmpleado
+                </label>
+                <input id="nmTipoEmpleado"
+                    asp-for="@Model.Actual!.TipoEmpleado" />
+                <br/>
 
                 <label>
                     Descripcion

@@ -46,43 +46,54 @@
                 <label>
                     Factura
                 </label>
-                <input id="nmFactura"
-                    asp-for="@Model.Actual!.Factura" />
-                <br/>
+                <select id="nmFactura"
+                    asp-for="@Model.Actual!.Factura"
+                    asp-items="@(new SelectList(Model.Facturas, "Id", "Cantidad"))">
+                </select>
+                <br />
 
                 <label>
                     Producto
                 </label>
-                <input id="nmProducto"
-                    asp-for="@Model.Actual!.Producto" />
+                <select id="nmProducto"
+                    asp-for="@Model.Actual!.Producto"
+                    asp-items="@(new SelectList(Model.Productos, "Id", "Nombre"))">
+                </select>
                 <br />
-
                 <label>
                     Cliente
                 </label>
-                <input id="nmCliente"
-                    asp-for="@Model.Actual!.Cliente" />
+                <select id="nmCliente"
+                    asp-for="@Model.Actual!.Cliente"
+                    asp-items="@(new SelectList(Model.Clientes, "Id", "Nombre"))">
+                </select>
                 <br />
 
                 <label>
                     Domicilio
                 </label>
-                <input id="nmDomicilio"
-                    asp-for="@Model.Actual!.Domicilio" />
+                <select id="nmDomicilio"
+                    asp-for="@Model.Actual!.Domicilio"
+                    asp-items="@(new SelectList(Model.Domicilios, "Id", "Fecha"))">
+                </select>
                 <br />
 
-                <label>
+               <label>
                     Estado
                 </label>
-                <input id="nmEstado"
-                       asp-for="@Model.Actual!.Estado" />
+                <select id="nmEstado"
+                    asp-for="@Model.Actual!.Estado"
+                    asp-items="@(new SelectList(Model.Estados, "Id", "Nombre"))">
+                </select>
                 <br />
 
                 <label>
                     Metodo_Pago
                 </label>
-                <input id="nmMetodo_Pago"
-                       asp-for="@Model.Actual!.Metodo_Pago" />
+                <select id="nmMetodo_Pago"
+                    asp-for="@Model.Actual!.Metodo_Pago"
+                    asp-items="@(new SelectList(Model.Metodos_Pagos, "Id", "Nombre"))">
+                </select>
                 <br />
             </div>
         }

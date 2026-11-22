@@ -10,13 +10,24 @@ namespace Front_Minimercado.Pages.Ventanas
     public class Empleados_CargosModel : PageModel
     {
         private IEmpleados_Cargos_Presentacion IEmpleados_Cargos_Presentacion;
+        private ICargos_Presentacion ICargos_Presentacion;
+        private IEmpleados_Presentacion IEmpleados_Presentacion;
+        private IContratos_Presentacion IContratos_Presentacion;
 
-        public Empleados_CargosModel(IEmpleados_Cargos_Presentacion IEmpleados_Cargos_Presentacion)
+        public Empleados_CargosModel(IEmpleados_Cargos_Presentacion IEmpleados_Cargos_Presentacion,
+            ICargos_Presentacion iCargos_Presentacion,
+            IEmpleados_Presentacion iEmpleados_Presentacion,
+            IContratos_Presentacion iContratos_Presentacion)
         {
             this.IEmpleados_Cargos_Presentacion = IEmpleados_Cargos_Presentacion;
             this.Filtro = new Empleados_Cargos();
+            ICargos_Presentacion = iCargos_Presentacion;
+            IEmpleados_Presentacion = iEmpleados_Presentacion;
+            IContratos_Presentacion = iContratos_Presentacion;
         }
-
+        [BindProperty] public List<Cargos> Cargos { get; set; }
+        [BindProperty] public List<Empleados> Empleados { get; set; }
+        [BindProperty] public List<Contratos> Contratos { get; set; }
         [BindProperty] public List<Empleados_Cargos> Lista { get; set; }
         [BindProperty] public Empleados_Cargos? Filtro { get; set; }
         [BindProperty] public Empleados_Cargos? Actual { get; set; }
@@ -43,6 +54,9 @@ namespace Front_Minimercado.Pages.Ventanas
             {
                 Formulario = true;
                 this.Actual = new Empleados_Cargos();
+                this.Cargos = this.ICargos_Presentacion.Buscar(new Cargos());
+                this.Empleados = this.IEmpleados_Presentacion.Buscar(new Empleados());
+                this.Contratos = this.IContratos_Presentacion.Buscar(new Contratos());
             }
             catch (Exception ex)
             {
@@ -76,6 +90,9 @@ namespace Front_Minimercado.Pages.Ventanas
                 Formulario = true;
                 OnPostBtBuscar();
                 Actual = this.Lista.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                this.Cargos = this.ICargos_Presentacion.Buscar(new Cargos());
+                this.Empleados = this.IEmpleados_Presentacion.Buscar(new Empleados());
+                this.Contratos = this.IContratos_Presentacion.Buscar(new Contratos());
             }
             catch (Exception ex)
             {

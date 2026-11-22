@@ -251,6 +251,8 @@ CREATE TABLE [Productos]
 	[Marca] INT NOT NULL REFERENCES [Marcas]([id]),
 	[Categoria] INT NOT NULL REFERENCES [Categorias]([id])
 );
+ALTER TABLE Productos ALTER COLUMN Imagen NVARCHAR(MAX) NULL;
+
 
 INSERT INTO [Productos] ([Codigo], [Nombre], [Precio], [IVA], [Proveedor], [Estante], [Inventario], [Marca], [Categoria])
 VALUES (1001, 'Coca Cola 3L', 12000, 19, 1, 1, 1, 1, 1);

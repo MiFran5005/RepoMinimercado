@@ -46,15 +46,19 @@
                 <label>
                     Empleado
                 </label>
-                <input id="nmEmpleado"
-                    asp-for="@Model.Actual!.Empleado" />
+                <select id="nmEmpleado"
+                    asp-for="@Model.Actual!.Empleado"
+                    asp-items="@(new SelectList(Model.Empleados, "Id", "Nombre"))">
+                </select>
                 <br/>
 
                 <label>
                     Vehiculo
-                </label>
-                <input id="nmVehiculo"
-                    asp-for="@Model.Actual!.Vehiculo" />
+                </label>      
+                <select id="nmVehiculo"
+                    asp-for="@Model.Actual!.Vehiculo"
+                    asp-items="@(new SelectList(Model.Vehiculos, "Id", "Nombre"))">
+                </select>
                 <br />
 
                 <label>

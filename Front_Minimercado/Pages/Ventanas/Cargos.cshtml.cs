@@ -10,13 +10,21 @@ namespace Front_Minimercado.Pages.Ventanas
     public class CargosModel : PageModel
     {
         private ICargos_Presentacion ICargos_Presentacion;
+        private ISalarios_Presentacion ISalarios_Presentacion;
+        private IHorarios_Presentacion IHorarios_Presentacion;
 
-        public CargosModel(ICargos_Presentacion ICargos_Presentacion)
+        public CargosModel(ICargos_Presentacion ICargos_Presentacion,
+                           ISalarios_Presentacion ISalarios_Presentacion,
+                           IHorarios_Presentacion IHorarios_Presentacion)
         {
             this.ICargos_Presentacion = ICargos_Presentacion;
+            this.ISalarios_Presentacion = ISalarios_Presentacion;
+            this.IHorarios_Presentacion = IHorarios_Presentacion;
             this.Filtro = new Cargos();
         }
-
+         public IFormFile? FormFile { get; set; }
+        [BindProperty] public List<Salarios> Salarios { get; set; }
+        [BindProperty] public List<Horarios> Horarios { get; set; }
         [BindProperty] public List<Cargos> Lista { get; set; }
         [BindProperty] public Cargos? Filtro { get; set; }
         [BindProperty] public Cargos? Actual { get; set; }
@@ -45,6 +53,8 @@ namespace Front_Minimercado.Pages.Ventanas
             {
                 Formulario = true;
                 this.Actual = new Cargos();
+                this.Salarios = this.ISalarios_Presentacion.Consultar();
+                this.Horarios = this.IHorarios_Presentacion.Consultar();
             }
             catch (Exception ex)
             {
@@ -78,6 +88,8 @@ namespace Front_Minimercado.Pages.Ventanas
                 Formulario = true;
                 OnPostBtBuscar();
                 Actual = this.Lista.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                this.Salarios = this.ISalarios_Presentacion.Consultar();
+                this.Horarios = this.IHorarios_Presentacion.Consultar();
             }
             catch (Exception ex)
             {

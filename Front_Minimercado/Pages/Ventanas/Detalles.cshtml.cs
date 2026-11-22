@@ -10,13 +10,35 @@ namespace Front_Minimercado.Pages.Ventanas
     public class DetallesModel : PageModel
     {
         private IDetalles_Presentacion IDetalles_Presentacion;
+        private IFacturas_Presentacion IFacturas_Presentacion;
+        private IProductos_Presentacion IProductos_Presentacion;
+        private IClientes_Presentacion IClientes_Presentacion;
+        private IDomicilios_Presentacion IDomicilios_Presentacion;
+        private IEstados_Presentacion IEstados_Presentacion;
+        private IMetodos_Pagos_Presentacion IMetodos_Pagos_Presentacion;
 
-        public DetallesModel(IDetalles_Presentacion IDetalles_Presentacion)
+        public DetallesModel(IDetalles_Presentacion IDetalles_Presentacion, IFacturas_Presentacion iFacturas_Presentacion,
+            IProductos_Presentacion iProductos_Presentacion,
+            IClientes_Presentacion iClientes_Presentacion,
+            IDomicilios_Presentacion iDomicilios_Presentacion,
+            IEstados_Presentacion iEstados_Presentacion,
+            IMetodos_Pagos_Presentacion iMetodos_Pagos_Presentacion)
         {
             this.IDetalles_Presentacion = IDetalles_Presentacion;
             this.Filtro = new Detalles();
+            IFacturas_Presentacion = iFacturas_Presentacion;
+            IProductos_Presentacion = iProductos_Presentacion;
+            IClientes_Presentacion = iClientes_Presentacion;
+            IDomicilios_Presentacion = iDomicilios_Presentacion;
+            IEstados_Presentacion = iEstados_Presentacion;
+            IMetodos_Pagos_Presentacion = iMetodos_Pagos_Presentacion;
         }
-
+        [BindProperty] public List<Facturas> Facturas { get; set; }
+        [BindProperty] public List<Productos> Productos { get; set; }
+        [BindProperty] public List<Clientes> Clientes { get; set; }
+        [BindProperty] public List<Domicilios> Domicilios { get; set; }
+        [BindProperty] public List<Estados> Estados { get; set; }
+        [BindProperty] public List<Metodos_Pagos> Metodos_Pagos { get; set; }
         [BindProperty] public List<Detalles> Lista { get; set; }
         [BindProperty] public Detalles? Filtro { get; set; }
         [BindProperty] public Detalles? Actual { get; set; }
@@ -43,6 +65,12 @@ namespace Front_Minimercado.Pages.Ventanas
             {
                 Formulario = true;
                 this.Actual = new Detalles();
+                this.Facturas = this.IFacturas_Presentacion.Buscar(new Facturas());
+                this.Productos = this.IProductos_Presentacion.Buscar(new Productos());
+                this.Clientes = this.IClientes_Presentacion.Buscar(new Clientes());
+                this.Domicilios = this.IDomicilios_Presentacion.Buscar(new Domicilios());
+                this.Estados = this.IEstados_Presentacion.Buscar(new Estados());
+                this.Metodos_Pagos = this.IMetodos_Pagos_Presentacion.Buscar(new Metodos_Pagos());
             }
             catch (Exception ex)
             {
@@ -76,6 +104,12 @@ namespace Front_Minimercado.Pages.Ventanas
                 Formulario = true;
                 OnPostBtBuscar();
                 Actual = this.Lista.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                this.Facturas = this.IFacturas_Presentacion.Buscar(new Facturas());
+                this.Productos = this.IProductos_Presentacion.Buscar(new Productos());
+                this.Clientes = this.IClientes_Presentacion.Buscar(new Clientes());
+                this.Domicilios = this.IDomicilios_Presentacion.Buscar(new Domicilios());
+                this.Estados = this.IEstados_Presentacion.Buscar(new Estados());
+                this.Metodos_Pagos = this.IMetodos_Pagos_Presentacion.Buscar(new Metodos_Pagos());
             }
             catch (Exception ex)
             {

@@ -10,13 +10,20 @@ namespace Front_Minimercado.Pages.Ventanas
     public class PedidosModel : PageModel
     {
         private IPedidos_Presentacion IPedidos_Presentacion;
+        private IEmpleados_Presentacion IEmpleados_Presentacion;
+        private IProveedores_Presentacion IProveedores_Presentacion;
 
-        public PedidosModel(IPedidos_Presentacion IPedidos_Presentacion)
+        public PedidosModel(IPedidos_Presentacion IPedidos_Presentacion,
+            IEmpleados_Presentacion IEmpleados_Presentacion,
+            IProveedores_Presentacion IProveedores_Presentacion)
         {
             this.IPedidos_Presentacion = IPedidos_Presentacion;
+            this.IEmpleados_Presentacion = IEmpleados_Presentacion;
+            this.IProveedores_Presentacion = IProveedores_Presentacion;
             this.Filtro = new Pedidos();
         }
-
+        [BindProperty] public List<Empleados> Empleados { get; set; }
+        [BindProperty] public List<Proveedores> Proveedores { get; set; }
         [BindProperty] public List<Pedidos> Lista { get; set; }
         [BindProperty] public Pedidos? Filtro { get; set; }
         [BindProperty] public Pedidos? Actual { get; set; }
@@ -43,6 +50,8 @@ namespace Front_Minimercado.Pages.Ventanas
             {
                 Formulario = true;
                 this.Actual = new Pedidos();
+                this.Empleados = this.IEmpleados_Presentacion.Buscar(new Empleados());
+                this.Proveedores = this.IProveedores_Presentacion.Buscar(new Proveedores());
             }
             catch (Exception ex)
             {
@@ -76,6 +85,8 @@ namespace Front_Minimercado.Pages.Ventanas
                 Formulario = true;
                 OnPostBtBuscar();
                 Actual = this.Lista.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                this.Empleados = this.IEmpleados_Presentacion.Buscar(new Empleados());
+                this.Proveedores = this.IProveedores_Presentacion.Buscar(new Proveedores());
             }
             catch (Exception ex)
             {
