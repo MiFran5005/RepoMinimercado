@@ -64,11 +64,11 @@ namespace Front_Minimercado.Pages.Ventanas
             {
                 Formulario = true;
                 this.Actual = new Productos();
-                this.Proveedores = this.IProveedores_Presentacion.Buscar(new Proveedores());
-                this.Estantes = this.IEstantes_Presentacion.Buscar(new Estantes());
-                this.Inventarios = this.IInventarios_Presentacion.Buscar(new Inventarios());
-                this.Marcas = this.IMarcas_Presentacion.Buscar(new Marcas());
-                this.Categorias = this.ICategorias_Presentacion.Buscar(new Categorias());
+                this.Proveedores = this.IProveedores_Presentacion.Consultar();
+                this.Estantes = this.IEstantes_Presentacion.Consultar();
+                this.Inventarios = this.IInventarios_Presentacion.Consultar();
+                this.Marcas = this.IMarcas_Presentacion.Consultar();
+                this.Categorias = this.ICategorias_Presentacion.Consultar();
             }
             catch (Exception ex)
             {
@@ -109,11 +109,11 @@ namespace Front_Minimercado.Pages.Ventanas
                 Formulario = true;
                 OnPostBtBuscar();
                 Actual = this.Lista.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
-                this.Proveedores = this.IProveedores_Presentacion.Buscar(new Proveedores());
-                this.Estantes = this.IEstantes_Presentacion.Buscar(new Estantes());
-                this.Inventarios = this.IInventarios_Presentacion.Buscar(new Inventarios());
-                this.Marcas = this.IMarcas_Presentacion.Buscar(new Marcas());
-                this.Categorias = this.ICategorias_Presentacion.Buscar(new Categorias());
+                this.Proveedores = this.IProveedores_Presentacion.Consultar();
+                this.Estantes = this.IEstantes_Presentacion.Consultar();
+                this.Inventarios = this.IInventarios_Presentacion.Consultar();
+                this.Marcas = this.IMarcas_Presentacion.Consultar();
+                this.Categorias = this.ICategorias_Presentacion.Consultar();
             }
             catch (Exception ex)
             {

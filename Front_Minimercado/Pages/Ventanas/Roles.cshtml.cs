@@ -29,7 +29,7 @@ namespace Front_Minimercado.Pages.Ventanas
             try
             {
                 this.Filtro!.Nombre = this.Filtro!.Nombre ?? "";
-                Lista = this.IRoles_Presentacion.Buscar(this.Filtro!);
+                Lista = this.IRoles_Presentacion.Consultar();
             }
             catch (Exception ex)
             {

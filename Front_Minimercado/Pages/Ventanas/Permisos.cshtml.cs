@@ -41,7 +41,7 @@ namespace Front_Minimercado.Pages.Ventanas
             {
                 CargarListas();
                 this.Filtro!.Nombre = this.Filtro!.Nombre ?? "";
-                Lista = this.IPermisos_Presentacion.Buscar(this.Filtro!);
+                Lista = this.IPermisos_Presentacion.Consultar();
             }
             catch (Exception ex)
             {

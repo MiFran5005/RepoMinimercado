@@ -54,9 +54,9 @@ namespace Front_Minimercado.Pages.Ventanas
             {
                 Formulario = true;
                 this.Actual = new Empleados_Cargos();
-                this.Cargos = this.ICargos_Presentacion.Buscar(new Cargos());
-                this.Empleados = this.IEmpleados_Presentacion.Buscar(new Empleados());
-                this.Contratos = this.IContratos_Presentacion.Buscar(new Contratos());
+                this.Cargos = this.ICargos_Presentacion.Consultar();
+                this.Empleados = this.IEmpleados_Presentacion.Consultar();
+                this.Contratos = this.IContratos_Presentacion.Consultar();
             }
             catch (Exception ex)
             {
@@ -90,9 +90,9 @@ namespace Front_Minimercado.Pages.Ventanas
                 Formulario = true;
                 OnPostBtBuscar();
                 Actual = this.Lista.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
-                this.Cargos = this.ICargos_Presentacion.Buscar(new Cargos());
-                this.Empleados = this.IEmpleados_Presentacion.Buscar(new Empleados());
-                this.Contratos = this.IContratos_Presentacion.Buscar(new Contratos());
+                this.Cargos = this.ICargos_Presentacion.Consultar();
+                this.Empleados = this.IEmpleados_Presentacion.Consultar();
+                this.Contratos = this.IContratos_Presentacion.Consultar();
             }
             catch (Exception ex)
             {

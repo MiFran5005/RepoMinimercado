@@ -113,7 +113,8 @@
             </div>
         }
     </div>
-
+     @if (!Model.Formulario)
+     {
     <table class="table text-center align-middle">
         <thead class="table-light">
             <tr>
@@ -147,6 +148,7 @@
                 </tr>
             }
         </tbody>
-    </table>
+     </table>
+    }
 </form>
 

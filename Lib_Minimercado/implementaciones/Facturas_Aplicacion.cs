@@ -42,14 +42,16 @@ namespace Lib_Minimercado.implementaciones
 
         public List<Facturas> Buscar(Facturas entidad)
         {
-            return this.conexion.Facturas!
-                .Where(x => x.Total >= entidad.Total)
-                .ToList();
+            return this.conexion!.Facturas!
+            .Include(x => x._Empleado)
+            .Where(x => x.Total >= entidad.Total)
+            .ToList();
         }
         public List<Facturas> Consultar()
         {
-            return this.conexion.Facturas!
-                .ToList();
+            return this.conexion!.Facturas!
+            .Include(x => x._Empleado)
+             .ToList();
         }
 
         public Facturas Insertar(Facturas entidad)

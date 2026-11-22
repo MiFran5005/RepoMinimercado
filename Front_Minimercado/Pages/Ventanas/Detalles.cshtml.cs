@@ -65,12 +65,12 @@ namespace Front_Minimercado.Pages.Ventanas
             {
                 Formulario = true;
                 this.Actual = new Detalles();
-                this.Facturas = this.IFacturas_Presentacion.Buscar(new Facturas());
-                this.Productos = this.IProductos_Presentacion.Buscar(new Productos());
-                this.Clientes = this.IClientes_Presentacion.Buscar(new Clientes());
-                this.Domicilios = this.IDomicilios_Presentacion.Buscar(new Domicilios());
-                this.Estados = this.IEstados_Presentacion.Buscar(new Estados());
-                this.Metodos_Pagos = this.IMetodos_Pagos_Presentacion.Buscar(new Metodos_Pagos());
+                this.Facturas = this.IFacturas_Presentacion!.Consultar();
+                this.Productos = this.IProductos_Presentacion!.Consultar();
+                this.Clientes = this.IClientes_Presentacion!.Consultar();
+                this.Domicilios = this.IDomicilios_Presentacion!.Consultar();
+                this.Estados = this.IEstados_Presentacion!.Consultar();
+                this.Metodos_Pagos = this.IMetodos_Pagos_Presentacion!.Consultar();
             }
             catch (Exception ex)
             {
@@ -104,12 +104,12 @@ namespace Front_Minimercado.Pages.Ventanas
                 Formulario = true;
                 OnPostBtBuscar();
                 Actual = this.Lista.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
-                this.Facturas = this.IFacturas_Presentacion.Buscar(new Facturas());
-                this.Productos = this.IProductos_Presentacion.Buscar(new Productos());
-                this.Clientes = this.IClientes_Presentacion.Buscar(new Clientes());
-                this.Domicilios = this.IDomicilios_Presentacion.Buscar(new Domicilios());
-                this.Estados = this.IEstados_Presentacion.Buscar(new Estados());
-                this.Metodos_Pagos = this.IMetodos_Pagos_Presentacion.Buscar(new Metodos_Pagos());
+                this.Facturas = this.IFacturas_Presentacion!.Consultar();
+                this.Productos = this.IProductos_Presentacion!.Consultar();
+                this.Clientes = this.IClientes_Presentacion!.Consultar();
+                this.Domicilios = this.IDomicilios_Presentacion!.Consultar();
+                this.Estados = this.IEstados_Presentacion!.Consultar();
+                this.Metodos_Pagos = this.IMetodos_Pagos_Presentacion!.Consultar();
             }
             catch (Exception ex)
             {

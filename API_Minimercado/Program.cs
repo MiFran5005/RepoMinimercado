@@ -8,7 +8,10 @@ builder.Services.AddControllers(o =>
 {
     o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
     o.Filters.Add<AuditoriaFilter>();
-});
+})
+.AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler =
+        System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
 builder.Services.AddScoped<IConexion, Conexion>();
 builder.Services.AddScoped<ICargos_Aplicacion, Cargos_Aplicacion>();
 builder.Services.AddScoped<ICategorias_Aplicacion, Categorias_Aplicacion>();

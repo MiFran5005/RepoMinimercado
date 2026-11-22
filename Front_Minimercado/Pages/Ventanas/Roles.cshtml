@@ -77,35 +77,37 @@
         }
     </div>
 
-    <table class="table text-center align-middle">
-        <thead class="table-light">
-            <tr>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Lista)
-            {
+     @if (!Model.Formulario)
+    {
+        <table class="table text-center align-middle">
+            <thead class="table-light">
                 <tr>
-                    <td>@item.Nombre</td>
-                    <td>@item.Descripcion</td>
-                    <td>
-                        <input type="submit"
-                               value="Editar"
-                               class="btn btn-secondary"
-                               asp-page-handler="BtEditar"
-                               asp-route-data="@item.Id" />
-                        <input type="submit"
-                               value="Borrar"
-                               class="btn btn-secondary"
-                               asp-page-handler="BtPregBorrar"
-                               asp-route-data="@item.Id" />
-                    </td>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Lista)
+                {
+                    <tr>
+                        <td>@item.Nombre</td>
+                        <td>@item.Descripcion</td>
+                        <td>
+                            <input type="submit"
+                                   value="Editar"
+                                   class="btn btn-secondary"
+                                   asp-page-handler="BtEditar"
+                                   asp-route-data="@item.Id" />
+                            <input type="submit"
+                                   value="Borrar"
+                                   class="btn btn-secondary"
+                                   asp-page-handler="BtPregBorrar"
+                                   asp-route-data="@item.Id" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </form>
-
