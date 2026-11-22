@@ -48,6 +48,12 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 app.UseSession();
+app.Use(async (context, next) =>
+{
+    var comunicaciones = context.RequestServices.GetRequiredService<IComunicaciones>();
+    comunicaciones.UsuarioId = context.Session.GetString("UsuarioId");
+    await next();
+});
 
 app.UseHttpsRedirection();
 

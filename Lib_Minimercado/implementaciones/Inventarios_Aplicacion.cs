@@ -18,8 +18,8 @@ namespace Lib_Minimercado.implementaciones
 
         public Inventarios Actualizar(Inventarios entidad)
         {
-            if (entidad.Id != 0)
-                throw new Exception("Ya se guardo");
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardado");
 
             if (Validar(entidad))
                 throw new Exception("Falta informacion");

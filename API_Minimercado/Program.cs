@@ -1,3 +1,4 @@
+using API_Minimercado;
 using Lib_Minimercado.implementaciones;
 using Lib_Minimercado.interfaces;
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(o =>
 {
     o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+    o.Filters.Add<AuditoriaFilter>();
 });
 builder.Services.AddScoped<IConexion, Conexion>();
 builder.Services.AddScoped<ICargos_Aplicacion, Cargos_Aplicacion>();
@@ -33,6 +35,7 @@ builder.Services.AddScoped<IRoles_Aplicacion, Roles_Aplicacion>();
 builder.Services.AddScoped<IPermisos_Aplicacion, Permisos_Aplicacion>();
 builder.Services.AddScoped<IUsuarios_Aplicacion, Usuarios_Aplicacion>();
 builder.Services.AddScoped<IAuditorias_Aplicacion, Auditorias_Aplicacion>();
+
 
 
 var app = builder.Build();

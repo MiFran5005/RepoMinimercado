@@ -6,6 +6,7 @@ namespace Presentacion_Minimercado.implementaciones
 {
     public class Comunicaciones : IComunicaciones
     {
+        public string? UsuarioId { get; set; }
         public async Task<T> Ejecutar<T>(string url, object entidad)
         {
             url = "http://localhost:5232/" + url;
@@ -16,6 +17,8 @@ namespace Presentacion_Minimercado.implementaciones
 
             var cliente_http = new HttpClient();
             cliente_http.Timeout = new TimeSpan(0, 4, 0);
+            if (!string.IsNullOrEmpty(UsuarioId))
+                cliente_http.DefaultRequestHeaders.Add("X-Usuario-Id", UsuarioId);
 
             var message = await cliente_http.PostAsync(url, body);
 

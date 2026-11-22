@@ -18,8 +18,8 @@ namespace Lib_Minimercado.implementaciones
 
         public Empleados Actualizar(Empleados entidad)
         {
-            if (entidad.Id != 0)
-                throw new Exception("Ya se guardo");
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardado");
 
             if (Validar(entidad))
                 throw new Exception("Falta informacion");
@@ -29,7 +29,6 @@ namespace Lib_Minimercado.implementaciones
             this.conexion!.SaveChanges();
             return entidad;
         }
-
         public Empleados Borrar(Empleados entidad)
         {
             if (entidad.Id == 0)
