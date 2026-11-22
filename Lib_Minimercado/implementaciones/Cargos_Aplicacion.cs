@@ -38,12 +38,16 @@ namespace Lib_Minimercado.implementaciones
         public List<Cargos> Buscar(Cargos entidad)
         {
             return this.conexion.Cargos!
+                .Include(x => x._Salario)
+                .Include(x => x._Horario)
                 .Where(x => x.TipoEmpleado!.Contains(entidad.TipoEmpleado!))
                 .ToList();
         }
         public List<Cargos> Consultar()
         {
             return this.conexion.Cargos!
+                .Include(x => x._Salario)
+                .Include(x => x._Horario)
                 .ToList();
         }
 

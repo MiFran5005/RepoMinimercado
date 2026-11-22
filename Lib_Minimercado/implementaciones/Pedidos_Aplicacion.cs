@@ -41,12 +41,16 @@ namespace Lib_Minimercado.implementaciones
         public List<Pedidos> Buscar(Pedidos entidad)
         {
             return this.conexion.Pedidos!
+                .Include(x => x._Empleado)
+                .Include(x => x._Proveedor)
                 .Where(x => x.Cantidad! >= entidad.Cantidad!)
                 .ToList();
         }
         public List<Pedidos> Consultar()
         {
             return this.conexion.Pedidos!
+                .Include(x => x._Empleado)
+                .Include(x => x._Proveedor)
                 .ToList();
         }
 

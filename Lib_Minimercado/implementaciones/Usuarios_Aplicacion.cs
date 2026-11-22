@@ -31,6 +31,9 @@ namespace Lib_Minimercado.implementaciones
         public List<Usuarios> Buscar(Usuarios entidad)
         {
             var lista = this.conexion!.Usuarios!
+                .Include(x => x._Rol)
+                .Include(x => x._Empleado)
+                .Include(x => x._Cliente)
                 .Where(x => x.NombreUsuario!.Contains(entidad.NombreUsuario!))
                 .ToList();
             lista.ForEach(x => x.Contrasena = null);

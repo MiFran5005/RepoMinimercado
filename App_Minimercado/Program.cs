@@ -24,7 +24,7 @@ try
     var lista_metodos_pagos = conexion.Metodos_Pagos!.ToList();
     var lista_pedidos = conexion.Pedidos!.ToList();
     var lista_productos = conexion.Productos!.ToList();
-    var lista_proveedores = conexion.Proveedores!.ToList();
+    var lista_Proveedors = conexion.Proveedores!.ToList();
     var lista_salarios = conexion.Salarios!.ToList();
     var lista_vehiculos = conexion.Vehiculos!.ToList();
     var lista_roles = conexion.Roles!.ToList();

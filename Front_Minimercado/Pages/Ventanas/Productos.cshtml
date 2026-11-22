@@ -186,11 +186,11 @@
                                 <td>@elemento.Nombre</td>
                                 <td>@elemento.Precio</td>
                                 <td>@elemento.IVA</td>
-                                <td>@elemento.Proveedor</td>
-                                <td>@elemento.Estante</td>
-                                <td>@elemento.Inventario</td>
-                                <td>@elemento.Marca</td>
-                                <td>@elemento.Categoria</td>
+                                <td>@elemento._Proveedor?.Nombre</td>
+                                <td>@elemento._Estante?.Nombre</td>
+                                <td>@elemento._Inventario?.Cantidad</td>
+                                <td>@elemento._Marca?.Nombre</td>
+                                <td>@elemento._Categoria?.Nombre</td>
                                 <td>@elemento.Imagen</td>
                                 <td>
                                     <input type="submit" 

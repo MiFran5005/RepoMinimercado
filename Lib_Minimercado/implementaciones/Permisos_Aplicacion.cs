@@ -15,12 +15,15 @@ namespace Lib_Minimercado.implementaciones
 
         public List<Permisos> Consultar()
         {
-            return this.conexion!.Permisos!.ToList();
+            return this.conexion!.Permisos!
+                .Include(x => x._Rol)
+                .ToList();
         }
 
         public List<Permisos> Buscar(Permisos entidad)
         {
             return this.conexion!.Permisos!
+                .Include(x => x._Rol)
                 .Where(x => x.Nombre!.Contains(entidad.Nombre!))
                 .ToList();
         }

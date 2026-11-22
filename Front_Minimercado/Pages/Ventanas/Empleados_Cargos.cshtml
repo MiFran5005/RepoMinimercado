@@ -124,9 +124,9 @@
                         foreach (var elemento in Model.Lista)
                         {
                             <tr>
-                                <td>@elemento.Cargo</td>
-                                <td>@elemento.Empleado</td>
-                                <td>@elemento.Contrato</td>
+                                <td>@elemento._Cargo?.TipoEmpleado</td>
+                                <td>@elemento._Empleado?.Nombre</td>
+                                <td>@elemento._Contrato?.TipoContrato</td>
                                 <td>@elemento.FechaAsignacion</td>
                                 <td>
                                     <input type="submit" 

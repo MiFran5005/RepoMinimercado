@@ -15,6 +15,6 @@ namespace Lib_Minimercado.entidades
         public DateTime Fecha { get; set; }
 
         [ForeignKey("Empleado")] public Empleados? _Empleado { get; set; }
-        [ForeignKey("Proveedor")] public Proveedores? _Proveedore { get; set; }
+        [ForeignKey("Proveedor")] public Proveedores? _Proveedor { get; set; }
     }
 }

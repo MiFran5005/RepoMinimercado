@@ -145,12 +145,12 @@
                         foreach (var elemento in Model.Lista)
                         {
                             <tr>
-                                <td>@elemento.Factura</td>
-                                <td>@elemento.Producto</td>
-                                <td>@elemento.Cliente</td>
-                                <td>@elemento.Domicilio</td>
-                                <td>@elemento.Estado</td>
-                                <td>@elemento.Metodo_Pago</td>
+                                <td>@elemento._Factura?.Cantidad</td>
+                                <td>@elemento._Producto?.Nombre</td>
+                                <td>@elemento._Cliente?.Nombre</td>
+                                <td>@elemento._Domicilio?.Fecha</td>
+                                <td>@elemento._Estado?.Nombre</td>
+                                <td>@elemento._Metodo_Pago?.Nombre</td>
                                 <td>
                                     <input type="submit" 
                                         value="Editar"

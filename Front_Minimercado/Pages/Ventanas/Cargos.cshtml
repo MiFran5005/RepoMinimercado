@@ -48,7 +48,7 @@
                 </label>
                 <select id="nmSalario"
                     asp-for="@Model.Actual!.Salario"
-                    asp-items="@(new SelectList(Model.Salarios, "Id", "Monto"))">
+                    asp-items="@(new SelectList(Model.Salarios, "Id", "Valor"))">
                 </select>
                 <br />
 
@@ -122,8 +122,8 @@
                         {
                             <tr>
                                 <td>@elemento.TipoEmpleado</td>
-                                <td>@elemento.Salario</td>
-                                <td>@elemento.Horario</td>
+                                <td>@elemento._Salario?.Valor</td>
+                                <td>@elemento._Horario?.Turno</td>
                                 <td>@elemento.Descripcion</td>
                                 <td>
                                     <input type="submit" 

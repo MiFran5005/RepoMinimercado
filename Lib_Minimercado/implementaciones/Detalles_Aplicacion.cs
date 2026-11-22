@@ -42,13 +42,26 @@ namespace Lib_Minimercado.implementaciones
         public List<Detalles> Buscar(Detalles entidad)
         {
             return this.conexion.Detalles!
+                .Include(x => x._Factura)
+                .Include(x => x._Producto)
+                .Include(x => x._Cliente)
+                .Include(x => x._Domicilio)
+                .Include(x => x._Estado)
+                .Include(x => x._Metodo_Pago)
                 .Where(x => x.Factura! >= entidad.Factura!)
                 .ToList();
         }
         public List<Detalles> Consultar()
         {
             return this.conexion.Detalles!
+                .Include(x => x._Factura)
+                .Include(x => x._Producto)
+                .Include(x => x._Cliente)
+                .Include(x => x._Domicilio)
+                .Include(x => x._Estado)
+                .Include(x => x._Metodo_Pago)
                 .ToList();
+                
         }
 
         public Detalles Insertar(Detalles entidad)

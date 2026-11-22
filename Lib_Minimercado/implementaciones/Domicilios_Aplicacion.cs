@@ -42,12 +42,16 @@ namespace Lib_Minimercado.implementaciones
         public List<Domicilios> Buscar(Domicilios entidad)
         {
             return this.conexion.Domicilios!
+                .Include(x => x._Empleado)
+                .Include(x => x._Vehiculo)
                 .Where(x => x.Descripcion!.Contains(entidad.Descripcion!))
                 .ToList();
         }
         public List<Domicilios> Consultar()
         {
             return this.conexion.Domicilios!
+                .Include(x => x._Empleado)
+                .Include(x => x._Vehiculo)
                 .ToList();
         }
 

@@ -42,12 +42,22 @@ namespace Lib_Minimercado.implementaciones
         public List<Productos> Buscar(Productos entidad)
         {
             return this.conexion.Productos!
+                .Include(x => x._Proveedor)
+                .Include(x => x._Estante)
+                .Include(x => x._Inventario)
+                .Include(x => x._Marca)
+                .Include(x => x._Categoria)
                 .Where(x => x.Nombre!.Contains(entidad.Nombre!))
                 .ToList();
         }
         public List<Productos> Consultar()
         {
             return this.conexion.Productos!
+                .Include(x => x._Proveedor)
+                .Include(x => x._Estante)
+                .Include(x => x._Inventario)
+                .Include(x => x._Marca)
+                .Include(x => x._Categoria)
                 .ToList();
         }
 
