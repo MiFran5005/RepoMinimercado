@@ -17,6 +17,7 @@ namespace Lib_Minimercado.entidades
         public int Inventario { get; set; }
         public int Marca { get; set; }
         public int Categoria { get; set; }
+        public String? Imagen { get; set; }
 
         [ForeignKey("Proveedor")] public Proveedores? _Proveedor { get; set; }
         [ForeignKey("Estante")] public Estantes? _Estante { get; set; }

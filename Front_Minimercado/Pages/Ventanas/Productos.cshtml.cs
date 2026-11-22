@@ -16,9 +16,9 @@ namespace Front_Minimercado.Pages.Ventanas
             this.IProductos_Presentacion = IProductos_Presentacion;
             this.Filtro = new Productos();
         }
-
+        [BindProperty] public IFormFile? FormFile { get; set; }
         [BindProperty] public List<Productos> Lista { get; set; }
-        [BindProperty] public Productos? Filtro { get; set; }
+        [BindProperty] public Productos? Filtro { get; set; }   
         [BindProperty] public Productos? Actual { get; set; }
         [BindProperty] public bool Formulario { get; set; } = false;
         [BindProperty] public bool Borrar { get; set; } = false;
@@ -55,6 +55,13 @@ namespace Front_Minimercado.Pages.Ventanas
         {
             try
             {
+                if (FormFile != null)
+                {
+                    var memoryStream = new MemoryStream();
+                    FormFile.CopyToAsync(memoryStream).Wait();
+                    Actual!.Imagen = Convert.ToBase64String(memoryStream.ToArray());
+                    memoryStream.Dispose();
+                }
                 if (this.Actual!.Id == 0)
                     this.Actual = this.IProductos_Presentacion.Insertar(this.Actual!);
                 else

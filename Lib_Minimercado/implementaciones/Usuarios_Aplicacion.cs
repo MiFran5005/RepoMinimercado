@@ -87,9 +87,9 @@ namespace Lib_Minimercado.implementaciones
                                   && x.Contrasena == hash);
 
             if (usuario == null)
-                throw new Exception("Usuario o contraseña incorrectos");
+                return new Usuarios();
 
-          
+
             var rol = this.conexion.Roles!.First(x => x.Id == usuario.Rol);
             usuario._Rol = new Roles { Id = rol.Id, Nombre = rol.Nombre };
             usuario.Contrasena = null;

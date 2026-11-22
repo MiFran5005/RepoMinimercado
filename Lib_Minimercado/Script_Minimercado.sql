@@ -305,50 +305,69 @@ VALUES (1, 1, 1, 1, 1, 1);
 SELECT * FROM [Detalles];
 
 
-
-CREATE TABLE Roles (
-    Id          INT IDENTITY(1,1) NOT NULL,
-    Nombre      NVARCHAR(50)  NOT NULL,
-    Descripcion NVARCHAR(200) NULL,
-    CONSTRAINT PK_Roles PRIMARY KEY (Id),
-    CONSTRAINT UQ_Roles_Nombre UNIQUE (Nombre)
+CREATE TABLE [Roles]
+(
+    [Id] INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
+    [Nombre] NVARCHAR(200) NOT NULL,
+    [Descripcion] NVARCHAR(200) NOT NULL
 );
-GO
 
-CREATE TABLE Permisos (
-    Id          INT IDENTITY(1,1) NOT NULL,
-    Nombre      NVARCHAR(100) NOT NULL,
-    Descripcion NVARCHAR(200) NULL,
-    Rol         INT NOT NULL,
-    CONSTRAINT PK_Permisos PRIMARY KEY (Id),
-    CONSTRAINT FK_Permisos_Roles FOREIGN KEY (Rol) REFERENCES Roles (Id)
-);
-GO
+INSERT INTO [Roles] ([Nombre], [Descripcion])
+VALUES ('Administrador', 'Acceso total al sistema'),
+       ('Cliente', 'Acceso a productos y a sus propios pedidos');
 
-CREATE TABLE Usuarios (
-    Id            INT IDENTITY(1,1) NOT NULL,
-    NombreUsuario NVARCHAR(50)  NOT NULL,
-    Contrasena    NVARCHAR(128) NOT NULL,
-    Rol           INT NOT NULL,
-    Empleado      INT NULL,
-    Cliente       INT NULL,
-    CONSTRAINT PK_Usuarios PRIMARY KEY (Id),
-    CONSTRAINT UQ_Usuarios_NombreUsuario UNIQUE (NombreUsuario),
-    CONSTRAINT FK_Usuarios_Roles     FOREIGN KEY (Rol)      REFERENCES Roles (Id),
-    CONSTRAINT FK_Usuarios_Empleados FOREIGN KEY (Empleado) REFERENCES Empleados (Id),
-    CONSTRAINT FK_Usuarios_Clientes  FOREIGN KEY (Cliente)  REFERENCES Clientes (Id)
-);
-GO
+SELECT * FROM [Roles];
 
-CREATE TABLE Auditorias (
-    Id      INT IDENTITY(1,1) NOT NULL,
-    Usuario INT NOT NULL,
-    Accion  NVARCHAR(50)  NOT NULL,
-    Entidad NVARCHAR(50)  NOT NULL,
-    Detalle NVARCHAR(500) NULL,
-    Fecha   DATETIME2     NOT NULL,
-    CONSTRAINT PK_Auditorias PRIMARY KEY (Id),
-    CONSTRAINT FK_Auditorias_Usuarios FOREIGN KEY (Usuario) REFERENCES Usuarios (Id)
+
+CREATE TABLE [Permisos]
+(
+    [Id] INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
+    [Nombre] NVARCHAR(200) NOT NULL,
+    [Descripcion] NVARCHAR(200) NOT NULL,
+    [Rol] INT NOT NULL REFERENCES [Roles]([Id])
 );
-GO
+
+INSERT INTO [Permisos] ([Nombre], [Descripcion], [Rol])
+VALUES ('VerSalarios', 'Permite ver los salarios', 1),
+       ('VerEmpleados', 'Permite ver y gestionar empleados', 1),
+       ('VerAuditorias', 'Permite consultar las auditorias', 1),
+       ('GestionarUsuarios', 'Permite crear y editar usuarios', 1),
+       ('VerProductos', 'Permite ver el catalogo de productos', 2),
+       ('VerMisPedidos', 'Permite ver sus propios pedidos y facturas', 2);
+
+SELECT * FROM [Permisos];
+
+
+CREATE TABLE [Usuarios]
+(
+    [Id] INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
+    [NombreUsuario] NVARCHAR(200) NOT NULL UNIQUE,
+    [Contrasena] NVARCHAR(128) NOT NULL,
+    [Rol] INT NOT NULL REFERENCES [Roles]([Id]),
+    [Empleado] INT NULL REFERENCES [Empleados]([Id]),
+    [Cliente] INT NULL REFERENCES [Clientes]([Id])
+);
+
+INSERT INTO [Usuarios] ([NombreUsuario], [Contrasena], [Rol])
+VALUES ('admin', CONVERT(NVARCHAR(128), HASHBYTES('SHA2_256', 'Admin123'), 2), 1);
+
+SELECT * FROM [Usuarios];
+
+
+CREATE TABLE [Auditorias]
+(
+    [Id] INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
+    [Usuario] INT NOT NULL REFERENCES [Usuarios]([Id]),
+    [Accion] NVARCHAR(200) NOT NULL,
+    [Entidad] NVARCHAR(200) NOT NULL,
+    [Detalle] NVARCHAR(500) NULL,
+    [Fecha] DATETIME2 NOT NULL
+);
+
+INSERT INTO [Auditorias] ([Usuario], [Accion], [Entidad], [Detalle], [Fecha])
+VALUES (1, 'Login', 'Usuarios', 'Inicio de sesion del administrador', SYSDATETIME());
+
+SELECT * FROM [Auditorias];
+
+
 */

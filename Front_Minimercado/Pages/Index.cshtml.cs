@@ -1,6 +1,5 @@
 using Lib_Minimercado.entidades;
 using Lib_Minimercado.nucleo;
-using Lib_Minimercado.Nucleo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Presentacion_Minimercado.interfaces;
@@ -19,6 +18,7 @@ namespace Front_Minimercado.Pages
         [BindProperty] public string? NombreUsuario { get; set; }
         [BindProperty] public string? Contrasena { get; set; }
         public bool EstaLogueado { get; set; }
+        public string? MensajeError { get; set; }
 
         public void OnGet()
         {
@@ -36,17 +36,31 @@ namespace Front_Minimercado.Pages
         {
             try
             {
-                var entidad = new Usuarios()
+                if (string.IsNullOrWhiteSpace(NombreUsuario) || string.IsNullOrWhiteSpace(Contrasena))
                 {
-                    NombreUsuario = this.NombreUsuario,
-                    Contrasena = this.Contrasena
-                };
+                    MensajeError = "Escribe el usuario y la contraseña";
+                }
+                else
+                {
+                    var entidad = new Usuarios()
+                    {
+                        NombreUsuario = this.NombreUsuario,
+                        Contrasena = this.Contrasena
+                    };
 
-                var usuario = this.IUsuarios_Presentacion.Login(entidad);
+                    var usuario = this.IUsuarios_Presentacion.Login(entidad);
 
-                HttpContext.Session.SetString("Usuario", usuario.NombreUsuario!);
-                HttpContext.Session.SetString("Rol", usuario._Rol!.Nombre!);
-                HttpContext.Session.SetString("UsuarioId", usuario.Id.ToString());
+                    if (usuario.Id == 0)
+                    {
+                        MensajeError = "El usuario o la contraseña no son correctos";
+                    }
+                    else
+                    {
+                        HttpContext.Session.SetString("Usuario", usuario.NombreUsuario!);
+                        HttpContext.Session.SetString("Rol", usuario._Rol!.Nombre!);
+                        HttpContext.Session.SetString("UsuarioId", usuario.Id.ToString());
+                    }
+                }
             }
             catch (Exception ex)
             {
