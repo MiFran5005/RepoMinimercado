@@ -1,0 +1,124 @@
+﻿@page
+@using Front_Minimercado.Pages.Ventanas
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model PermisosModel
+@{
+    ViewData["Title"] = "Minimercado";
+}
+<form method="post"
+      enctype="multipart/form-data">
+
+    <div class="text-center">
+        <h1 class="display-4">Permisos</h1>
+
+        <input type="submit"
+               value="Buscar"
+               class="btn btn-secondary"
+               asp-page-handler="BtBuscar" />
+        <input type="submit"
+               value="Nuevo"
+               class="btn btn-secondary"
+               asp-page-handler="BtNuevo" />
+        <input type="submit"
+               value="Guardar"
+               class="btn btn-secondary"
+               asp-page-handler="BtGuardar" />
+        <input id="flNombre"
+               placeholder="Nombre"
+               asp-for="@Model.Filtro!.Nombre" />
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
+        }
+
+        @if (Model.Formulario || Model.Borrar)
+        {
+            <input id="nmId"
+                   type="hidden"
+                   asp-for="@Model.Actual!.Id" />
+        }
+
+        @if (Model.Formulario)
+        {
+            <div>
+                <h3>Permiso</h3>
+
+                <label>
+                    Nombre
+                </label>
+                <input id="nmNombre"
+                       asp-for="@Model.Actual!.Nombre" />
+                <br />
+
+                <label>
+                    Descripcion
+                </label>
+                <input id="nmDescripcion"
+                       asp-for="@Model.Actual!.Descripcion" />
+                <br />
+
+                <label>
+                    Rol
+                </label>
+                <select id="nmRol"
+                        asp-for="@Model.Actual!.Rol"
+                        asp-items="@(new SelectList(Model.ListaRoles, "Id", "Nombre"))">
+                    <option value="0">-- Seleccione --</option>
+                </select>
+                <br />
+            </div>
+        }
+
+        @if (Model.Borrar)
+        {
+            <div>
+                <h3>¿Desea borrar este permiso?</h3>
+                <p>@(Model.Actual?.Nombre)</p>
+
+                <input type="submit"
+                       value="Borrar"
+                       class="btn btn-secondary"
+                       asp-page-handler="BtBorrar" />
+                <input type="submit"
+                       value="Cancelar"
+                       class="btn btn-secondary"
+                       asp-page-handler="BtBuscar" />
+            </div>
+        }
+    </div>
+
+    <table class="table text-center align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Rol</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Lista)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Descripcion</td>
+                    <td>@(Model.ListaRoles.FirstOrDefault(r => r.Id == item.Rol)?.Nombre)</td>
+                    <td>
+                        <input type="submit"
+                               value="Editar"
+                               class="btn btn-secondary"
+                               asp-page-handler="BtEditar"
+                               asp-route-data="@item.Id" />
+                        <input type="submit"
+                               value="Borrar"
+                               class="btn btn-secondary"
+                               asp-page-handler="BtPregBorrar"
+                               asp-route-data="@item.Id" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+

@@ -1,0 +1,152 @@
+﻿@page
+@using Front_Minimercado.Pages.Ventanas
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model UsuariosModel
+@{
+    ViewData["Title"] = "Minimercado";
+}
+<form method="post"
+      enctype="multipart/form-data">
+
+    <div class="text-center">
+        <h1 class="display-4">Usuarios</h1>
+
+        <input type="submit"
+               value="Buscar"
+               class="btn btn-secondary"
+               asp-page-handler="BtBuscar" />
+        <input type="submit"
+               value="Nuevo"
+               class="btn btn-secondary"
+               asp-page-handler="BtNuevo" />
+        <input type="submit"
+               value="Guardar"
+               class="btn btn-secondary"
+               asp-page-handler="BtGuardar" />
+        <input id="flNombreUsuario"
+               placeholder="Usuario"
+               asp-for="@Model.Filtro!.NombreUsuario" />
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
+        }
+
+        @if (Model.Formulario || Model.Borrar)
+        {
+            <input id="nmId"
+                   type="hidden"
+                   asp-for="@Model.Actual!.Id" />
+        }
+
+        @if (Model.Formulario)
+        {
+            <div>
+                <h3>Usuario</h3>
+
+                <label>
+                    Usuario
+                </label>
+                <input id="nmNombreUsuario"
+                       asp-for="@Model.Actual!.NombreUsuario" />
+                <br />
+
+                <label>
+                    Contraseña
+                </label>
+                <input id="nmContrasena"
+                       type="password"
+                       autocomplete="new-password"
+                       asp-for="@Model.Actual!.Contrasena" />
+                @if (Model.Actual!.Id != 0)
+                {
+                    <small class="text-muted">Déjala vacía para conservar la actual</small>
+                }
+                <br />
+
+                <label>
+                    Rol
+                </label>
+                <select id="nmRol"
+                        asp-for="@Model.Actual!.Rol"
+                        asp-items="@(new SelectList(Model.ListaRoles, "Id", "Nombre"))">
+                    <option value="0">-- Seleccione --</option>
+                </select>
+                <br />
+
+                <label>
+                    Empleado
+                </label>
+                <select id="nmEmpleado"
+                        asp-for="@Model.Actual!.Empleado"
+                        asp-items="@(new SelectList(Model.ListaEmpleados, "Id", "Nombre"))">
+                    <option value="">Ninguno</option>
+                </select>
+                <br />
+
+                <label>
+                    Cliente
+                </label>
+                <select id="nmCliente"
+                        asp-for="@Model.Actual!.Cliente"
+                        asp-items="@(new SelectList(Model.ListaClientes, "Id", "Nombre"))">
+                    <option value="">Ninguno</option>
+                </select>
+                <br />
+            </div>
+        }
+
+        @if (Model.Borrar)
+        {
+            <div>
+                <h3>¿Desea borrar este usuario?</h3>
+                <p>@(Model.Actual?.NombreUsuario)</p>
+
+                <input type="submit"
+                       value="Borrar"
+                       class="btn btn-secondary"
+                       asp-page-handler="BtBorrar" />
+                <input type="submit"
+                       value="Cancelar"
+                       class="btn btn-secondary"
+                       asp-page-handler="BtBuscar" />
+            </div>
+        }
+    </div>
+
+    <table class="table text-center align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Usuario</th>
+                <th>Rol</th>
+                <th>Empleado</th>
+                <th>Cliente</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Lista)
+            {
+                <tr>
+                    <td>@item.NombreUsuario</td>
+                    <td>@(Model.ListaRoles.FirstOrDefault(r => r.Id == item.Rol)?.Nombre)</td>
+                    <td>@(item.Empleado?.ToString() ?? "-")</td>
+                    <td>@(item.Cliente?.ToString() ?? "-")</td>
+                    <td>
+                        <input type="submit"
+                               value="Editar"
+                               class="btn btn-secondary"
+                               asp-page-handler="BtEditar"
+                               asp-route-data="@item.Id" />
+                        <input type="submit"
+                               value="Borrar"
+                               class="btn btn-secondary"
+                               asp-page-handler="BtPregBorrar"
+                               asp-route-data="@item.Id" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+

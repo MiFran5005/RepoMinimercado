@@ -1,0 +1,54 @@
+﻿@page
+@using Front_Minimercado.Pages.Ventanas
+@model AuditoriasModel
+@{
+    ViewData["Title"] = "Minimercado";
+}
+<form method="post"
+      enctype="multipart/form-data">
+
+    <div class="text-center">
+        <h1 class="display-4">Auditorias</h1>
+
+        <input type="submit"
+               value="Buscar"
+               class="btn btn-secondary"
+               asp-page-handler="BtBuscar" />
+        <input id="flAccion"
+               placeholder="Accion"
+               asp-for="@Model.Filtro!.Accion" />
+        <input id="flEntidad"
+               placeholder="Entidad"
+               asp-for="@Model.Filtro!.Entidad" />
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml");
+        }
+    </div>
+
+    <table class="table text-center align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Fecha</th>
+                <th>Usuario</th>
+                <th>Accion</th>
+                <th>Entidad</th>
+                <th>Detalle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Lista)
+            {
+                <tr>
+                    <td>@item.Fecha.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                    <td>@(Model.ListaUsuarios.FirstOrDefault(u => u.Id == item.Usuario)?.NombreUsuario ?? item.Usuario.ToString())</td>
+                    <td>@item.Accion</td>
+                    <td>@item.Entidad</td>
+                    <td>@item.Detalle</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+
