@@ -65,10 +65,11 @@
                 <br />
 
                 <label>
-                    IVA
+                    IVA (19%)
                 </label>
                 <input id="nmIVA"
-                    asp-for="@Model.Actual!.IVA" />
+                    readonly
+                      value="@(Model.Actual?.IVA.ToString("N2"))" />
                 <br />
 
                 <label>
@@ -191,8 +192,18 @@
                                 <td>@elemento._Inventario?.Cantidad</td>
                                 <td>@elemento._Marca?.Nombre</td>
                                 <td>@elemento._Categoria?.Nombre</td>
-                                <td>@elemento.Imagen</td>
+                                  <td>
+                                    @if (elemento.Imagen != null)
+                                    {
+                                        <img height="60"
+                                             width="60"
+                                             src="data:image;base64,
+                                                @System.Convert.ToBase64String(
+                                                Convert.FromBase64String(elemento.Imagen))" />
+                                    }
+                                </td>
                                 <td>
+
                                     <input type="submit" 
                                         value="Editar"
                                         class="btn btn-secondary"

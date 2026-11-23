@@ -80,8 +80,12 @@ namespace Front_Minimercado.Pages.Ventanas
         {
             try
             {
+                this.Actual!.IVA = Math.Round(this.Actual.Precio * 0.19m, 2);
+
                 if (FormFile != null)
                 {
+                    if (FormFile.Length > 1024 * 1024)
+                        throw new Exception("La imagen no puede pesar más de 1 MB");
                     var memoryStream = new MemoryStream();
                     FormFile.CopyToAsync(memoryStream).Wait();
                     Actual!.Imagen = Convert.ToBase64String(memoryStream.ToArray());

@@ -20,6 +20,8 @@ namespace Lib_Minimercado.implementaciones
         {
             if (entidad.Id == 0)
                 throw new Exception("No se ha guardado");
+            
+           
 
             if (Validar(entidad))
                 throw new Exception("Falta informacion");

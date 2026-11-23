@@ -18,7 +18,9 @@ namespace Presentacion_Minimercado.implementaciones
                 if (entidad.Id == 0)
                     throw new Exception("No se ha guardo");
 
-                if (Validar(entidad))
+               
+
+            if (Validar(entidad))
                     throw new Exception("Falta informacion");
 
                 var task = this.IComunicaciones.Ejecutar<Productos>(
