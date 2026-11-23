@@ -75,10 +75,12 @@ namespace Presentacion_Minimercado.implementaciones
             }
             private bool Validar(Facturas entidad)
         {
-            return entidad.Cantidad <= 0 ||
-                entidad.Total <= 0 ||
-                entidad.Fecha == null ||
-                entidad.Empleado <= 0;
+            return entidad.Cliente <= 0 ||
+            entidad.Metodo_Pago <= 0 ||
+            entidad.Empleado <= 0 ||
+            entidad.Fecha == default ||
+            entidad.Detalles == null || 
+            entidad.Detalles.Count == 0;
         }
     }
 }

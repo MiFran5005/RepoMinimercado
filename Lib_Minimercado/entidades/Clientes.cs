@@ -14,5 +14,6 @@ namespace Lib_Minimercado.entidades
 
 
         public List<Detalles>? Detalles { get; set; }
+        public List<Facturas> Facturas { get; set; }
     }
 }

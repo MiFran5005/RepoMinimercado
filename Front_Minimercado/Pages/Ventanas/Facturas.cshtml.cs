@@ -14,15 +14,27 @@ namespace Front_Minimercado.Pages.Ventanas
     {
         private IFacturas_Presentacion IFacturas_Presentacion;
         private IEmpleados_Presentacion IEmpleados_Presentacion;
+        private IClientes_Presentacion IClientes_Presentacion;
+        private IMetodos_Pagos_Presentacion IMetodos_Pagos_Presentacion;
+        private IProductos_Presentacion IProductos_Presentacion;
 
         public FacturasModel(IFacturas_Presentacion IFacturas_Presentacion,
-            IEmpleados_Presentacion IEmpleados_Presentacion)
+            IEmpleados_Presentacion IEmpleados_Presentacion,
+            IClientes_Presentacion IClientes_Presentacion,
+            IMetodos_Pagos_Presentacion IMetodos_Pagos_Presentacion,
+            IProductos_Presentacion IProductos_Presentacion)
         {
             this.IFacturas_Presentacion = IFacturas_Presentacion;
             this.IEmpleados_Presentacion = IEmpleados_Presentacion;
+            this.IClientes_Presentacion = IClientes_Presentacion;
+            this.IMetodos_Pagos_Presentacion = IMetodos_Pagos_Presentacion;
+            this.IProductos_Presentacion = IProductos_Presentacion;
             this.Filtro = new Facturas();
         }
         [BindProperty] public List<Empleados> Empleados { get; set; }
+        [BindProperty] public List<Clientes> Clientes { get; set; }
+        [BindProperty] public List<Metodos_Pagos> Metodos_Pagos { get; set; }
+        [BindProperty] public List<Productos> Productos { get; set; }
         [BindProperty] public List<Facturas> Lista { get; set; }
         [BindProperty] public Facturas? Filtro { get; set; }
         [BindProperty] public Facturas? Actual { get; set; }
@@ -35,13 +47,25 @@ namespace Front_Minimercado.Pages.Ventanas
         {
             try
             {
-                
-                Lista = this.IFacturas_Presentacion.Buscar(this.Filtro!);
+                Lista = IFacturas_Presentacion.Buscar(Filtro!);
             }
             catch (Exception ex)
             {
                 LogConversor.Log(ex, ViewData!);
             }
+        }
+             private List<int> LeerCarrito()
+        {
+            var texto = HttpContext.Session.GetString("carrito") ?? "";
+            return texto.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                        .Select(int.Parse).ToList();
+        }
+
+        private void CargarListas()
+        {
+            Empleados = IEmpleados_Presentacion.Consultar();
+            Clientes = IClientes_Presentacion.Consultar();
+            Metodos_Pagos = IMetodos_Pagos_Presentacion.Consultar();
         }
 
         public void OnPostBtNuevo()
@@ -49,32 +73,42 @@ namespace Front_Minimercado.Pages.Ventanas
             try
             {
                 Formulario = true;
-                this.Actual = new Facturas();
-                this.Empleados = this.IEmpleados_Presentacion!.Consultar();
+                Actual = new Facturas { Fecha = DateTime.Now };
+                CargarListas();
+
+                var ids = LeerCarrito();
+                Productos = IProductos_Presentacion.Consultar()
+                    .Where(p => ids.Contains(p.Id)).ToList();
             }
-            catch (Exception ex)
-            {
-                LogConversor.Log(ex, ViewData!);
-            }
+            catch (Exception ex) { LogConversor.Log(ex, ViewData!); }
         }
+
 
         public void OnPostBtGuardar()
         {
             try
             {
-                if (this.Actual!.Id == 0)
-                    this.Actual = this.IFacturas_Presentacion.Insertar(this.Actual!);
+                if (Actual!.Id == 0)
+                {
+                    Actual.Detalles = LeerCarrito()
+                        .GroupBy(id => id)
+                        .Select(g => new Detalles { Producto = g.Key, Cantidad = g.Count() })
+                        .ToList();
+
+                    Actual = IFacturas_Presentacion.Insertar(Actual);
+                    HttpContext.Session.Remove("carrito");
+                }
                 else
-                    this.Actual = this.IFacturas_Presentacion.Actualizar(this.Actual!);
+                    Actual = IFacturas_Presentacion.Actualizar(Actual);
             }
-            catch (Exception ex)
-            {
-                LogConversor.Log(ex, ViewData!);
-            }
-            finally
-            {
-                OnPostBtBuscar();
-            }
+            catch (Exception ex) { LogConversor.Log(ex, ViewData!); }
+            finally { OnPostBtBuscar(); }
+        }
+
+        public void OnPostBtVaciar()
+        {
+            HttpContext.Session.Remove("carrito");
+            OnPostBtBuscar();
         }
 
         public void OnPostBtEditar(string data)
@@ -83,13 +117,10 @@ namespace Front_Minimercado.Pages.Ventanas
             {
                 Formulario = true;
                 OnPostBtBuscar();
-                Actual = this.Lista.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
-                this.Empleados = this.IEmpleados_Presentacion!.Consultar();
+                Actual = Lista.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                CargarListas();
             }
-            catch (Exception ex)
-            {
-                LogConversor.Log(ex, ViewData!);
-            }
+            catch (Exception ex) { LogConversor.Log(ex, ViewData!); }
         }
 
         public void OnPostBtPregBorrar(string data)
@@ -98,30 +129,20 @@ namespace Front_Minimercado.Pages.Ventanas
             {
                 Borrar = true;
                 OnPostBtBuscar();
-                Actual = this.Lista.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
+                Actual = Lista.FirstOrDefault(x => x.Id == Convert.ToInt32(data));
             }
-            catch (Exception ex)
-            {
-                LogConversor.Log(ex, ViewData!);
-            }
+            catch (Exception ex) { LogConversor.Log(ex, ViewData!); }
         }
 
         public void OnPostBtBorrar()
         {
             try
             {
-                if (this.Actual!.Id == 0)
-                    return;
-                this.Actual = this.IFacturas_Presentacion.Borrar(this.Actual!);
+                if (Actual!.Id == 0) return;
+                Actual = IFacturas_Presentacion.Borrar(Actual);
             }
-            catch (Exception ex)
-            {
-                LogConversor.Log(ex, ViewData!);
-            }
-            finally
-            {
-                OnPostBtBuscar();
-            }
+            catch (Exception ex) { LogConversor.Log(ex, ViewData!); }
+            finally { OnPostBtBuscar(); }
         }
 
         public IActionResult OnPostBtPdf()

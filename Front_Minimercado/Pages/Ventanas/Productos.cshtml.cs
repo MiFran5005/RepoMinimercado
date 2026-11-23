@@ -156,6 +156,12 @@ namespace Front_Minimercado.Pages.Ventanas
                 OnPostBtBuscar();
             }
         }
+        public void OnPostBtAgregar(string data)
+        {
+            var carrito = HttpContext.Session.GetString("carrito") ?? "";
+            HttpContext.Session.SetString("carrito", carrito + data + ",");
+            OnPostBtBuscar();
+        }
 
     }
 }

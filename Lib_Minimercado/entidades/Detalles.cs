@@ -14,6 +14,8 @@ namespace Lib_Minimercado.entidades
         public int Domicilio { get; set; }
         public int Estado { get; set; }
         public int Metodo_Pago { get; set; }
+        public int Cantidad { get; set; }
+        public int Precio { get; set; }
 
         [ForeignKey("Factura")] public Facturas? _Factura { get; set; }
         [ForeignKey("Producto")] public Productos? _Producto { get; set; }

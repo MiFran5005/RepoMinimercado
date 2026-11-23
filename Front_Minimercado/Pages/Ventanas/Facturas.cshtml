@@ -5,19 +5,19 @@
     ViewData["Title"] = "Minimercado";
 }
 <form method="post"
-    enctype="multipart/form-data">
+      enctype="multipart/form-data">
 
     <div class="text-center">
         <h1 class="display-4">Facturas</h1>
 
         <input type="submit"
-            value="Buscar"
-            class="btn btn-secondary"
-            asp-page-handler="BtBuscar"/>
+               value="Buscar"
+               class="btn btn-secondary"
+               asp-page-handler="BtBuscar" />
         <input type="submit"
-            value="Nuevo"
-            class="btn btn-secondary"
-            asp-page-handler="BtNuevo"/>
+               value="Nuevo"
+               class="btn btn-secondary"
+               asp-page-handler="BtNuevo" />
         <input type="submit"
                value="Guardar"
                class="btn btn-secondary"
@@ -30,9 +30,6 @@
         <input id="flTotal"
                placeholder="Total"
                asp-for="@Model.Filtro!.Total" />
-        <input id="flTotal" 
-            placeholder="Total"
-            asp-for="@Model.Filtro!.Total"/>
 
         @if (ViewData.ContainsKey("Mensaje"))
         {
@@ -42,49 +39,75 @@
         @if (Model.Formulario || Model.Borrar)
         {
             <input id="nmId"
-                type="hidden"
-                asp-for="@Model.Actual!.Id" />
+                   type="hidden"
+                   asp-for="@Model.Actual!.Id" />
         }
 
         @if (Model.Formulario)
         {
             <div>
                 <h3>Facturas</h3>
-                
-                <label>
-                    Cantidad
-                </label>
-                <input id="nmCantidad"
-                    asp-for="@Model.Actual!.Cantidad" />
-                <br/>
+
+                <input type="hidden" asp-for="@Model.Actual!.Cantidad" />
+                <input type="hidden" asp-for="@Model.Actual!.Total" />
 
                 <label>
-                    Total
+                    Cliente
                 </label>
-                <input id="nmTotal"
-                    asp-for="@Model.Actual!.Total" />
+                <select id="nmCliente"
+                        asp-for="@Model.Actual!.Cliente"
+                        asp-items="@(new SelectList(Model.Clientes, "Id", "Nombre"))">
+                </select>
                 <br />
 
                 <label>
-                    Fecha
+                    Metodo de pago
                 </label>
-                <input id="nmFecha"
-                    asp-for="@Model.Actual!.Fecha" />
+                <select id="nmMetodo_Pago"
+                        asp-for="@Model.Actual!.Metodo_Pago"
+                        asp-items="@(new SelectList(Model.Metodos_Pagos, "Id", "Nombre"))">
+                </select>
                 <br />
 
                 <label>
                     Empleado
                 </label>
                 <select id="nmEmpleado"
-                    asp-for="@Model.Actual!.Empleado"
-                    asp-items="@(new SelectList(Model.Empleados, "Id", "Nombre"))">
+                        asp-for="@Model.Actual!.Empleado"
+                        asp-items="@(new SelectList(Model.Empleados, "Id", "Nombre"))">
                 </select>
                 <br />
 
-                
+                <label>
+                    Fecha
+                </label>
+                <input id="nmFecha"
+                       type="datetime-local"
+                       asp-for="@Model.Actual!.Fecha" />
+                <br />
+
+                @if (Model.Actual!.Id == 0)
+                {
+               <label>
+                   Productos seleccionados
+               </label>
+                <br />
+                 @foreach (var p in Model.Productos)
+                {
+                  var cantidad = (HttpContext.Session.GetString("carrito") ?? "")
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Count(x => x == p.Id.ToString());
+              <span>@p.Nombre x @cantidad - @(p.Precio * cantidad)</span>
+                  <br />
+                }   
+                 <input type="submit"
+                  value="Vaciar carrito"
+                  class="btn btn-secondary"
+                  asp-page-handler="BtVaciar" />
+            }
             </div>
         }
-        
+
         @if (Model.Borrar)
         {
             <div class="popup">
@@ -95,19 +118,17 @@
                         ¿Desea borrar la entidad...?
                     </h4>
                     <h6>
-                        @Model.Actual!.Cantidad,
                         @Model.Actual!.Total,
                         @Model.Actual!.Fecha
-                        @Model.Actual!.Empleado
                     </h6>
                     <input type="submit"
-                        value="Cancelar"
-                        class="btn btn-secondary"
-                        asp-page-handler="BtBuscar" />
+                           value="Cancelar"
+                           class="btn btn-secondary"
+                           asp-page-handler="BtBuscar" />
                     <input type="submit"
-                        value="Borrar"
-                        class="btn btn-secondary"
-                        asp-page-handler="BtBorrar" />
+                           value="Borrar"
+                           class="btn btn-secondary"
+                           asp-page-handler="BtBorrar" />
                 </div>
             </div>
         }
@@ -117,32 +138,38 @@
             <div class="containers_vn panel panel-default">
                 <table class="tb_data table table-striped table-bordered table-hover">
                     <tr>
+                        <th>Cliente</th>
+                        <th>Productos</th>
                         <th>Cantidad</th>
                         <th>Total</th>
-                        <th>Fecha</th>
+                        <th>Metodo de pago</th>
                         <th>Empleado</th>
-                        
+                        <th>Fecha</th>
+                        <th>Acción</th>
                     </tr>
                     @if (Model != null && Model.Lista != null)
                     {
                         foreach (var elemento in Model.Lista)
                         {
                             <tr>
+                                <td>@elemento._Cliente?.Nombre</td>
+                                <td>@string.Join(", ", elemento.Detalles.Select(d => d._Producto?.Nombre))</td>
                                 <td>@elemento.Cantidad</td>
                                 <td>@elemento.Total</td>
-                                <td>@elemento.Fecha</td>
+                                <td>@elemento._Metodo_Pago?.Nombre</td>
                                 <td>@elemento._Empleado?.Nombre</td>
+                                <td>@elemento.Fecha</td>
                                 <td>
-                                    <input type="submit" 
-                                        value="Editar"
-                                        class="btn btn-secondary"
-                                        asp-page-handler="BtEditar"
-                                        asp-route-data="@elemento.Id" />
-                                    <input type="submit" 
-                                        value="Borrar"
-                                        class="btn btn-secondary"
-                                        asp-page-handler="BtPregBorrar"
-                                        asp-route-data="@elemento.Id" />
+                                    <input type="submit"
+                                           value="Editar"
+                                           class="btn btn-secondary"
+                                           asp-page-handler="BtEditar"
+                                           asp-route-data="@elemento.Id" />
+                                    <input type="submit"
+                                           value="Borrar"
+                                           class="btn btn-secondary"
+                                           asp-page-handler="BtPregBorrar"
+                                           asp-route-data="@elemento.Id" />
                                 </td>
                             </tr>
                         }
@@ -153,4 +180,3 @@
 
     </div>
 </form>
-

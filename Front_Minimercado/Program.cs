@@ -37,7 +37,7 @@ builder.Services.AddScoped<IAuditorias_Presentacion, Auditorias_Presentacion>();
 
 
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(o => o.IdleTimeout = TimeSpan.FromMinutes(30));
+builder.Services.AddSession();
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

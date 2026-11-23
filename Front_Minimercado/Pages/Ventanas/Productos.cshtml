@@ -22,6 +22,7 @@
             value="Guardar"
             class="btn btn-secondary"
             asp-page-handler="BtGuardar"/>
+
         <input id="flNombre" 
             placeholder="Nombre"
             asp-for="@Model.Filtro!.Nombre"/>
@@ -214,6 +215,12 @@
                                         class="btn btn-secondary"
                                         asp-page-handler="BtPregBorrar"
                                         asp-route-data="@elemento.Id" />
+                                        <input type="submit"
+                                        value="Agregar"
+                                        class="btn btn-secondary"
+                                        asp-page-handler="BtAgregar"
+                                        asp-route-data="@elemento.Id" />
+
                                 </td>
                             </tr>
                         }
