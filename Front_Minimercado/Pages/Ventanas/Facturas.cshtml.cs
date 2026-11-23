@@ -3,7 +3,10 @@ using Lib_Minimercado.nucleo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Presentacion_Minimercado.implementaciones;
-using Presentacion_Minimercado.interfaces;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+
 
 namespace Front_Minimercado.Pages.Ventanas
 {
@@ -118,6 +121,99 @@ namespace Front_Minimercado.Pages.Ventanas
             finally
             {
                 OnPostBtBuscar();
+            }
+        }
+
+        public IActionResult OnPostBtPdf()
+        {
+            try
+            {
+                QuestPDF.Settings.License = LicenseType.Community;
+
+                var datos = this.IFacturas_Presentacion!.Consultar();
+
+                var pdf = Document.Create(contenedor =>
+                {
+                    contenedor.Page(pagina =>
+                    {
+                        pagina.Size(PageSizes.A4);
+                        pagina.Margin(30);
+                        pagina.DefaultTextStyle(x => x.FontSize(11));
+
+                        pagina.Header().Column(col =>
+                        {
+                            col.Item().Text("Reporte de Facturas").FontSize(20).Bold();
+                            col.Item().Text($"Generado: {DateTime.Now:dd/MM/yyyy HH:mm}");
+                        });
+
+                        pagina.Content().PaddingVertical(15).Table(tabla =>
+                        {
+                            tabla.ColumnsDefinition(c =>
+                            {
+                                c.RelativeColumn(1);  
+                                c.RelativeColumn(2);   
+                                c.RelativeColumn(3);   
+                                c.RelativeColumn(3);  
+                            });
+
+                            tabla.Header(h =>
+                            {
+                                h.Cell().Background(Colors.Grey.Lighten2)
+                                .Padding(5)
+                                .Text("Cantidad")
+                                .Bold();
+                                h.Cell().Background(Colors.Grey
+                                    .Lighten2).Padding(5)
+                                    .Text("Total").Bold();
+
+                                h.Cell().Background(Colors.Grey
+                                    .Lighten2).Padding(5)
+                                    .Text("Fecha").Bold();
+
+                                h.Cell().Background(Colors.Grey
+                                    .Lighten2).Padding(5)
+                                    .Text("Empleado").Bold();
+                            });
+
+                            foreach (var f in datos)
+                            {
+                                tabla.Cell().BorderBottom(1)
+                                .BorderColor(Colors.Grey.Lighten2)
+                                .Padding(5).Text(f.Cantidad
+                                .ToString());
+
+                                tabla.Cell().BorderBottom(1)
+                                .BorderColor(Colors.Grey
+                                    .Lighten2).Padding(5).Text(f.Total
+                                    .ToString("N0"));
+
+                                tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey
+                                    .Lighten2).Padding(5).Text(f.Fecha
+                                    .ToString("dd/MM/yyyy"));
+
+                                tabla.Cell().BorderBottom(1).BorderColor(Colors.Grey
+                                    .Lighten2).Padding(5)
+                                    .Text(f._Empleado?.Nombre ?? "-");
+                            }
+                        });
+
+                        pagina.Footer().AlignCenter().Text(x =>
+                        {
+                            x.Span("Página ");
+                            x.CurrentPageNumber();
+                            x.Span(" de ");
+                            x.TotalPages();
+                        });
+                    });
+                }).GeneratePdf();
+
+                return File(pdf, "application/pdf", "ReporteFacturas.pdf");
+            }
+            catch (Exception ex)
+            {
+                LogConversor.Log(ex, ViewData!);
+                OnPostBtBuscar();   
+                return Page();
             }
         }
 

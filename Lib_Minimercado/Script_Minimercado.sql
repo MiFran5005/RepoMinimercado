@@ -244,7 +244,7 @@ CREATE TABLE [Productos]
 	[Codigo] INT NOT NULL,
 	[Nombre] NVARCHAR(200) NOT NULL,
 	[Precio] INT NOT NULL,
-	[IVA] DECIMAL(4,2) NOT NULL,
+	[IVA] DECIMAL(18,2) NOT NULL,
 	[Proveedor] INT NOT NULL REFERENCES [Proveedores]([id]),
 	[Estante] INT NOT NULL REFERENCES [Estantes]([id]),
 	[Inventario] INT NOT NULL REFERENCES [Inventarios]([id]),
@@ -253,10 +253,14 @@ CREATE TABLE [Productos]
 	[Imagen] NVARCHAR(MAX) NULL
 );
 
+UPDATE Productos SET IVA = ROUND(Precio * 0.19, 2);
+
+SELECT Codigo, Nombre, Precio, IVA FROM Productos;
+
 INSERT INTO [Productos] ([Codigo], [Nombre], [Precio], [IVA], [Proveedor], [Estante], [Inventario], [Marca], [Categoria])
 VALUES (1001, 'Coca Cola 3L', 12000, 19, 1, 1, 1, 1, 1);
 
-SELECT * FROM [Productos];
+SELECT  Codigo, Nombre, Precio, IVA FROM [Productos];
 
 
 CREATE TABLE [Domicilios]
