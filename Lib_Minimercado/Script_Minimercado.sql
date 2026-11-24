@@ -38,7 +38,7 @@ CREATE TABLE [Contratos]
 	[Id] INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
 	[FechaInicio] DATETIME NOT NULL,
 	[FechaFin] DATETIME NOT NULL,
-	[TipoContrato] NVARCHAR(20) NOT NULL,
+	[TipoContrato] NVARCHAR(MAX) NOT NULL,
 	[Descripcion] NVARCHAR (MAX) NOT NULL
 );
 
@@ -280,32 +280,35 @@ SELECT * FROM [Domicilios];
 
 CREATE TABLE [Facturas]
 (
-	[Id] INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
-	[Cantidad] INT NOT NULL,
-	[Total] INT NOT NULL,
-	[Fecha] DATETIME NOT NULL,
-	[Empleado] INT NOT NULL REFERENCES [Empleados](id)
+    [Id] INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
+    [Cantidad] INT NOT NULL,
+    [Total] INT NOT NULL,
+    [Fecha] DATETIME NOT NULL,
+    [Empleado] INT NOT NULL REFERENCES [Empleados](id),
+    [Clientes] INT NOT NULL REFERENCES [Clientes](id),
+    [Metodos_Pagos] INT NOT NULL REFERENCES [Metodos_Pagos](id)
 );
 
-INSERT INTO [Facturas] ([Cantidad], [Total], [Fecha], [Empleado])
-VALUES (2, 24000, '2026-10-01 13:00:00', 1);
+INSERT INTO [Facturas] ([Cantidad], [Total], [Fecha], [Empleado], [Clientes], [Metodos_Pagos])
+VALUES (2, 24000, '2026-10-01 13:00:00', 1, 1, 1);
 
-SELECT * FROM [Facturas];
-
+SELECT * FROM [Facturas];f
 
 CREATE TABLE [Detalles]
 (
-	[Id] INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
-	[Factura] INT NOT NULL REFERENCES [Facturas](id),
-	[Producto] INT NOT NULL REFERENCES [Productos](id),
-	[Cliente] INT NOT NULL REFERENCES [Clientes](id),
-	[Domicilio] INT NULL REFERENCES [Domicilios](id),
-	[Estado] INT NOT NULL REFERENCES [Estados](id),
-	[Metodo_Pago] INT NOT NULL REFERENCES [Metodos_Pagos](id)
+    [Id] INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
+    [Factura] INT NOT NULL REFERENCES [Facturas](id),
+    [Producto] INT NOT NULL REFERENCES [Productos](id),
+    [Cliente] INT NOT NULL REFERENCES [Clientes](id),
+    [Domicilio] INT NULL REFERENCES [Domicilios](id),
+    [Estado] INT NOT NULL REFERENCES [Estados](id),
+    [Metodo_Pago] INT NOT NULL REFERENCES [Metodos_Pagos](id),
+    [Cantidad] INT NOT NULL DEFAULT 1,
+    [Precio] INT NOT NULL DEFAULT 0
 );
 
-INSERT INTO [Detalles] ([Factura], [Producto], [Cliente], [Domicilio], [Estado], [Metodo_Pago])
-VALUES (1, 1, 1, 1, 1, 1);
+INSERT INTO [Detalles] ([Factura], [Producto], [Cliente], [Estado], [Metodo_Pago], [Cantidad], [Precio])
+VALUES (1, 1, 1, 1, 1, 2, 12000);
 
 SELECT * FROM [Detalles];
 
@@ -373,6 +376,20 @@ INSERT INTO [Auditorias] ([Usuario], [Accion], [Entidad], [Detalle], [Fecha])
 VALUES (1, 'Login', 'Usuarios', 'Inicio de sesion del administrador', SYSDATETIME());
 
 SELECT * FROM [Auditorias];
+
+ALTER TABLE [Facturas] ADD [Clientes] INT NOT NULL DEFAULT 1,
+                           [Metodos_Pagos] INT NOT NULL DEFAULT 1;
+
+ALTER TABLE [Facturas] ADD CONSTRAINT FK_Facturas_Clientes
+    FOREIGN KEY ([Clientes]) REFERENCES [Clientes]([Id]);
+ALTER TABLE [Facturas] ADD CONSTRAINT FK_Facturas_Metodos_Pagos
+    FOREIGN KEY ([Metodos_Pagos]) REFERENCES [Metodos_Pagos]([Id]);
+
+	
+;
+
+SELECT TOP 1 Id FROM [Domicilios];
+SELECT TOP 1 Id FROM [Estados];
 
 
 */
